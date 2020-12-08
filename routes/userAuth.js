@@ -31,7 +31,7 @@ router.post('/register', validInput, async (req, res) => {
       email,
     ])
     const newUserDetails = await db.query(
-      "INSERT INTO user_profile(user_id, first_name, last_name, birthday, updated_at) VALUES($1, $2, $3, TO_DATE($4, 'YYYY MONTH DD'), current_timestamp)",
+      "INSERT INTO user_profile(user_id, first_name, last_name, birthday, updated_at) VALUES($1, $2, $3, TO_DATE($4, 'YYYY MON DD'), current_timestamp)",
       [userID.rows[0].id, first_name, last_name, birthday]
     )
 
