@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react'
+import { Link } from 'react-router-dom'
 
-const Register = () => {
+const Register = ({ setAuth }) => {
   const [input, setInput] = useState({
     firstName: '',
     lastName: '',
@@ -51,21 +52,28 @@ const Register = () => {
 
   const onSubmitForm = async (e) => {
     e.preventDefault()
-    checkInput()
-    const body = {
-      firstName,
-      lastName,
-      email,
-      password,
-      birthday: `${year} ${month} ${day}`,
-    }
-    console.log(body)
+    if (checkInput()) {
+      const body = {
+        first_name: firstName,
+        last_name: lastName,
+        email,
+        password,
+        birthday: `${year} ${month} ${day}`,
+      }
+      const response = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      })
+      if (response.status === 401) {
+        setError('email')
+        displayInputError()
+      }
+      // const parseRes = await response.json()
 
-    // const response = await fetch('http://localhostt:5000/api/auth/register', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(body),
-    // })
+      // localStorage.setItem('token', parseRes.token)
+      // setAuth(true)
+    }
     try {
     } catch (err) {
       console.error(err.message)
@@ -77,14 +85,11 @@ const Register = () => {
     const inputMonth = new Date(`1 ${month} ${year}`).getMonth()
     if (isNaN(validDate) || inputMonth !== validDate.getMonth()) {
       setError('dateError')
+      return false
     } else {
       setError('')
+      return true
     }
-    console.log(error)
-
-    // if (error === 'dateError') {
-    //   return <div className='alert alert-danger' role='alert'></div>
-    // }
   }
 
   const displayInputError = () => {
@@ -92,6 +97,13 @@ const Register = () => {
       return (
         <div className='alert alert-danger' role='alert'>
           Please enter valid birthday
+        </div>
+      )
+    } else if (error === 'email') {
+      return (
+        <div className='alert alert-danger' role='alert'>
+          Email already exists. Please try again or{' '}
+          <Link to='/login'>login</Link>
         </div>
       )
     }
@@ -197,6 +209,7 @@ const Register = () => {
           <button className='btn btn-primary btn-block'>Submit</button>
         </div>
       </form>
+      <Link to='/login'>Login</Link>
     </Fragment>
   )
 }

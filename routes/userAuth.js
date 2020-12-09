@@ -42,7 +42,7 @@ router.post('/register', validInput, async (req, res) => {
     res.json(newUser.rows[0])
   } catch (err) {
     console.error(err.message)
-    res.status(500).json('Server Error')
+    return res.status(500).json('Server Error')
   }
 })
 
@@ -78,7 +78,7 @@ router.get('/verify_session', authorization, async (req, res) => {
     res.json(true)
   } catch (err) {
     console.error(err.message)
-    res.status(500).json('Server Error')
+    return res.status(500).json('Server Error')
   }
 })
 

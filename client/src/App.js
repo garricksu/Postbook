@@ -12,10 +12,10 @@ import Login from './components/Login'
 import Register from './components/Register'
 
 function App() {
-  const { isAuthenticated, setIsAuthenticated } = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
 
-  const setAuth = (boolean) => {
-    setIsAuthenticated(boolean)
+  const setAuth = (authStatus) => {
+    setIsAuthenticated(authStatus)
   }
 
   return (
