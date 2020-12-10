@@ -26,7 +26,7 @@ const Login = ({ setAuth }) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     })
-    console.log(response.status)
+
     if (response.status === 401) {
       setError('credentials')
       displayInputError()
@@ -43,17 +43,12 @@ const Login = ({ setAuth }) => {
     }
   }
 
+  // display credentials error if no matching email/password
   const displayInputError = () => {
-    if (error === 'dateError') {
+    if (error === 'credentials') {
       return (
         <div className='alert alert-danger' role='alert'>
-          Please enter valid birthday
-        </div>
-      )
-    } else if (error === 'credentials') {
-      return (
-        <div className='alert alert-danger' role='alert'>
-          Incorrect email or password
+          Incorrect email or password. Please try again
         </div>
       )
     }

@@ -15,6 +15,7 @@ const Register = ({ setAuth }) => {
 
   const { firstName, lastName, email, password, month, day, year } = input
 
+  // List of dates for select menu
   const getDays = () => {
     let days = [
       <option disabled selected value=''>
@@ -27,6 +28,7 @@ const Register = ({ setAuth }) => {
     return days
   }
 
+  //  List of years for select menu
   const getYears = () => {
     let years = [
       <option disabled selected value=''>
@@ -52,7 +54,7 @@ const Register = ({ setAuth }) => {
 
   const onSubmitForm = async (e) => {
     e.preventDefault()
-    if (checkInput()) {
+    if (checkInputDate()) {
       const body = {
         first_name: firstName,
         last_name: lastName,
@@ -68,11 +70,12 @@ const Register = ({ setAuth }) => {
       if (response.status === 401) {
         setError('email')
         displayInputError()
-      }
-      // const parseRes = await response.json()
+      } else {
+        const parseRes = await response.json()
 
-      // localStorage.setItem('token', parseRes.token)
-      // setAuth(true)
+        localStorage.setItem('token', parseRes.token)
+        setAuth(true)
+      }
     }
     try {
     } catch (err) {
@@ -80,7 +83,8 @@ const Register = ({ setAuth }) => {
     }
   }
 
-  const checkInput = () => {
+  // Check user birthday is valid date
+  const checkInputDate = () => {
     const validDate = new Date(`${day} ${month} ${year}`)
     const inputMonth = new Date(`1 ${month} ${year}`).getMonth()
     if (isNaN(validDate) || inputMonth !== validDate.getMonth()) {
@@ -92,6 +96,7 @@ const Register = ({ setAuth }) => {
     }
   }
 
+  // Return alert based on error in input
   const displayInputError = () => {
     if (error === 'dateError') {
       return (

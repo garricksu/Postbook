@@ -3,6 +3,7 @@ const db = require('../db')
 const authorization = require('../middleware/authorization')
 
 router.get('/', authorization, async (req, res) => {
+  // send back current logged in user after token validation
   try {
     const userDetails = await db.query(
       'SELECT * FROM user_profile WHERE user_id=$1',

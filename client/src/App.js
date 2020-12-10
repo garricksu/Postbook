@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 
 import {
   BrowserRouter as Router,
@@ -17,6 +17,29 @@ function App() {
   const setAuth = (authStatus) => {
     setIsAuthenticated(authStatus)
   }
+
+  const validAuth = async () => {
+    try {
+      const response = await fetch(
+        'http://localhost:5000/api/auth/verify_session',
+        {
+          mehthod: 'GET',
+          headers: { token: localStorage.token },
+        }
+      )
+
+      const parseRes = await response.json()
+
+      parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false)
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+
+  // Check if user is alreaady logged in, even if page is refreshed. (temp until context implementation )
+  useEffect(() => {
+    validAuth()
+  })
 
   return (
     <Fragment>

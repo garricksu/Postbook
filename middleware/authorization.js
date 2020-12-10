@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
 module.exports = async (req, res, next) => {
+  //Check token is valid
   try {
     const jwtToken = req.header('token')
 
