@@ -1,7 +1,10 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import UserContext from '../context/user/UserContext'
 
-const Register = ({ setAuth }) => {
+const Register = (props) => {
+  const userContext = useContext(UserContext)
+  const {isAuthenticated, registerUser} = userContext
   const [input, setInput] = useState({
     firstName: '',
     lastName: '',
@@ -14,6 +17,13 @@ const Register = ({ setAuth }) => {
   const [error, setError] = useState('')
 
   const { firstName, lastName, email, password, month, day, year } = input
+  
+  useEffect(()=> {
+    if (isAuthenticated) {
+      props.history.push('/dashboard')
+    }
+  })
+  
 
   // List of dates for select menu
   const getDays = () => {
@@ -36,17 +46,13 @@ const Register = ({ setAuth }) => {
       </option>,
     ]
     const currentYear = new Date().getFullYear()
-    for (let i = currentYear; i >= currentYear - 117; i--) {
-      let dayValue = 0
-      if (i < 10) {
-        dayValue = `0${i}`
-      } else {
-        dayValue = `${i}`
-      }
-      years.push(<option value={dayValue}>{i}</option>)
+    for (let i = currentYear; i >= currentYear - 120; i--) {
+      
+      years.push(<option value={i}>{i}</option>)
     }
     return years
   }
+
 
   const updateInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value })
@@ -62,20 +68,8 @@ const Register = ({ setAuth }) => {
         password,
         birthday: `${year} ${month} ${day}`,
       }
-      const response = await fetch('http://localhost:5000/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      })
-      if (response.status === 401) {
-        setError('email')
-        displayInputError()
-      } else {
-        const parseRes = await response.json()
+      registerUser(body)
 
-        localStorage.setItem('token', parseRes.token)
-        setAuth(true)
-      }
     }
     try {
     } catch (err) {

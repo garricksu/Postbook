@@ -3,8 +3,9 @@ require('dotenv').config()
 
 module.exports = async (req, res, next) => {
   //Check token is valid
+
   try {
-    const jwtToken = req.header('token')
+    const jwtToken = req.header('x-auth-token')
 
     if (!jwtToken) {
       return res.status(403).json('Unauthorized Access')
@@ -12,7 +13,7 @@ module.exports = async (req, res, next) => {
 
     const payload = jwt.verify(jwtToken, process.env.jwtSecret)
 
-    req.user = payload.user
+    req.userID = payload.userID
     next()
   } catch (err) {
     console.error(err.message)

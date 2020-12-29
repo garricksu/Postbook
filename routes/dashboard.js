@@ -5,15 +5,14 @@ const authorization = require('../middleware/authorization')
 router.get('/', authorization, async (req, res) => {
   // send back current logged in user after token validation
   try {
-    const userDetails = await db.query(
-      'SELECT * FROM user_profile WHERE user_id=$1',
-      [req.user]
-    )
-    const { first_name, last_name } = userDetails.rows[0]
+    const user = await db.query('SELECT * FROM user_profile WHERE user_id=$1', [
+      req.userID,
+    ])
+    const { first_name, last_name } = user.rows[0]
     res.json({
-      loggedInUser: req.user,
-      first_name,
-      last_name,
+      id: req.userID,
+      firstName: first_name,
+      lastName: last_name,
     })
   } catch (err) {
     console.error(err.message)

@@ -40,7 +40,7 @@ router.post('/register', validInput, async (req, res) => {
     return res.json({ token })
   } catch (err) {
     console.error(err.message)
-    res.status(500).json('Server Error')
+    return res.status(500).json('Server Error')
   }
 })
 
@@ -71,13 +71,13 @@ router.post('/login', validInput, async (req, res) => {
   }
 })
 
-router.get('/verify_session', authorization, async (req, res) => {
-  try {
-    res.json(true)
-  } catch (err) {
-    console.error(err.message)
-    return res.status(500).json('Server Error')
-  }
-})
+// router.get('/verify_session', authorization, async (req, res) => {
+//   try {
+//     res.json(true)
+//   } catch (err) {
+//     console.error(err.message)
+//     return res.status(500).json('Server Error')
+//   }
+// })
 
 module.exports = router

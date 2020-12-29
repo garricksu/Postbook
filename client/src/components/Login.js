@@ -1,7 +1,10 @@
-import React, { Fragment, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { Fragment, useState, useContext, useEffect } from 'react'
+import { Link, Redirect } from 'react-router-dom'
+import UserContext from '../context/user/UserContext'
 
-const Login = ({ setAuth }) => {
+const Login = (props) => {
+  const userContext = useContext(UserContext)
+  const {isAuthenticated, loginUser} = userContext
   const [input, setInput] = useState({
     email: '',
     password: '',
@@ -10,37 +13,25 @@ const Login = ({ setAuth }) => {
 
   const { email, password } = input
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/dashboard')
+    }
+  },[isAuthenticated, props.history])
+
   const updateInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value })
   }
 
   const onSubmitForm = async (e) => {
     e.preventDefault()
+    
 
     const body = {
       email,
       password,
     }
-    const response = await fetch('http://localhost:5000/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    })
-
-    if (response.status === 401) {
-      setError('credentials')
-      displayInputError()
-    } else {
-      const parseRes = await response.json()
-
-      localStorage.setItem('token', parseRes.token)
-      setAuth(true)
-    }
-
-    try {
-    } catch (err) {
-      console.error(err.message)
-    }
+    loginUser(body)
   }
 
   // display credentials error if no matching email/password
