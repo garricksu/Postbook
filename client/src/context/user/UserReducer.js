@@ -3,7 +3,7 @@ import {
   CLEAR_USER,
   LOGIN_USER,
   REGISTER_USER,
-  AUTH_FAILED
+  AUTH_FAILED,
 } from '../types'
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -20,13 +20,20 @@ export default (state, action) => {
       return {
         ...state,
         isAuthenticated: true,
-        user: action.payload
+        user: action.payload,
       }
-      case AUTH_FAILED:
-        return {
-          ...state,
-          isAuthenticated: false
-        }
+    case AUTH_FAILED:
+      return {
+        ...state,
+        isAuthenticated: false,
+      }
+    case CLEAR_USER:
+      localStorage.removeItem('token')
+      return {
+        ...state,
+        user: {},
+        isAuthenticated: false
+      }
     default:
       return state
   }

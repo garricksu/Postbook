@@ -3,23 +3,7 @@ import UserContext from '../context/user/UserContext'
 
 const Dashboard = () => {
   const userContext = useContext(UserContext)
-  const { getUser, user: {firstName, lastName, id} } = userContext
-
-  // const getUser = async () => {
-  //   //Retrieve user with token
-  //   try {
-  //     const response = await fetch('http://localhost:5000/dashboard', {
-  //       method: 'GET',
-  //       headers: { token: localStorage.token },
-  //     })
-
-  //     const parseRes = await response.json()
-  //     const { first_name, last_name } = parseRes
-  //     setUser({ firstName: first_name, lastName: last_name })
-  //   } catch (err) {
-  //     console.error(err.message)
-  //   }
-  // }
+  const { getUser, clearUser, user: {firstName, lastName, id} } = userContext
 
   useEffect(() => {
     getUser()
@@ -27,7 +11,7 @@ const Dashboard = () => {
 
   const logout = (e) => {
     e.preventDefault()
-    localStorage.removeItem('token')
+    clearUser()
   }
 
   return (

@@ -1,7 +1,13 @@
 import React, { useReducer } from 'react'
 import UserContext from './UserContext'
 import UserReducer from './UserReducer'
-import { GET_USER, CLEAR_USER, LOGIN_USER, REGISTER_USER, AUTH_FAILED } from '../types'
+import {
+  GET_USER,
+  CLEAR_USER,
+  LOGIN_USER,
+  REGISTER_USER,
+  AUTH_FAILED,
+} from '../types'
 
 import setAuthToken from '../../utils/setAuthToken'
 import axios from 'axios'
@@ -18,49 +24,45 @@ const UserState = (props) => {
 
   // Register User
   const registerUser = async (body) => {
-    const response = await fetch('http://localhost:5000/api/auth/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    })
-    if (response.status === 401) {
-      const error = 'email'
-      setError(error)
-    } else {
-      const parseRes = await response.json()
+    const config = { headers: { 'Content-Type': 'application/json' } }
+    try {
+      const response = await axios.post(
+        'http://localhost:5000/api/auth/register',
+        JSON.stringify(body),
+        config
+      )
+      if (response.status === 401) {
+        const error = 'email'
+        setError(error)
+      } else {
+        const { token } = response.data
 
-      const { token } = parseRes
+        dispatch({
+          type: REGISTER_USER,
+          payload: token,
+        })
 
-      dispatch({
-        type: REGISTER_USER,
-        payload: token,
-      })
-
-      getUser(token)
+        getUser(token)
+      }
+    } catch (err) {
+      console.error(err.message)
     }
-  }
-  try {
-  } catch (err) {
-    console.error(err.message)
   }
 
   // Login User
   const loginUser = async (body) => {
+    const config = { headers: { 'Content-Type': 'application/json' } }
     try {
-      const response = await fetch('http://localhost:5000/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      })
-
+      const response = await axios.post(
+        'http://localhost:5000/api/auth/login',
+        JSON.stringify(body),
+        config
+      )
       if (response.status === 401) {
         setError('credentials')
         // displayInputError()
       } else {
-        const parseRes = await response.json()
-
-        const { token } = parseRes
-
+        const { token } = response.data
         dispatch({
           type: LOGIN_USER,
           payload: token,
@@ -79,23 +81,21 @@ const UserState = (props) => {
     }
     try {
       const response = await axios.get('http://localhost:5000/dashboard')
-
       dispatch({
         type: GET_USER,
         payload: response.data,
       })
-
     } catch (err) {
       dispatch({
         type: AUTH_FAILED,
       })
-
     }
   }
 
-  // Get user
-
   // Clear user
+  const clearUser = () => {
+    dispatch({ type: CLEAR_USER })
+  }
 
   // Set Error
   const setError = (error) => {}
@@ -110,6 +110,7 @@ const UserState = (props) => {
         loginUser,
         registerUser,
         getUser,
+        clearUser,
       }}
     >
       {props.children}

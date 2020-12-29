@@ -4,7 +4,7 @@ import UserContext from '../context/user/UserContext'
 
 const Register = (props) => {
   const userContext = useContext(UserContext)
-  const {isAuthenticated, registerUser} = userContext
+  const { isAuthenticated, registerUser } = userContext
   const [input, setInput] = useState({
     firstName: '',
     lastName: '',
@@ -17,13 +17,12 @@ const Register = (props) => {
   const [error, setError] = useState('')
 
   const { firstName, lastName, email, password, month, day, year } = input
-  
-  useEffect(()=> {
+
+  useEffect(() => {
     if (isAuthenticated) {
       props.history.push('/dashboard')
     }
-  })
-  
+  }, [isAuthenticated, props.history])
 
   // List of dates for select menu
   const getDays = () => {
@@ -47,12 +46,10 @@ const Register = (props) => {
     ]
     const currentYear = new Date().getFullYear()
     for (let i = currentYear; i >= currentYear - 120; i--) {
-      
       years.push(<option value={i}>{i}</option>)
     }
     return years
   }
-
 
   const updateInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value })
@@ -69,7 +66,6 @@ const Register = (props) => {
         birthday: `${year} ${month} ${day}`,
       }
       registerUser(body)
-
     }
     try {
     } catch (err) {

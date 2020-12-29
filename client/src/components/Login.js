@@ -4,7 +4,7 @@ import UserContext from '../context/user/UserContext'
 
 const Login = (props) => {
   const userContext = useContext(UserContext)
-  const {isAuthenticated, loginUser} = userContext
+  const { isAuthenticated, loginUser } = userContext
   const [input, setInput] = useState({
     email: '',
     password: '',
@@ -17,7 +17,7 @@ const Login = (props) => {
     if (isAuthenticated) {
       props.history.push('/dashboard')
     }
-  },[isAuthenticated, props.history])
+  }, [isAuthenticated, props.history])
 
   const updateInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value })
@@ -25,8 +25,6 @@ const Login = (props) => {
 
   const onSubmitForm = async (e) => {
     e.preventDefault()
-    
-
     const body = {
       email,
       password,
