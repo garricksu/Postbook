@@ -1,15 +1,14 @@
 import React, { Fragment, useState, useContext, useEffect } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import UserContext from '../context/user/UserContext'
 
 const Login = (props) => {
   const userContext = useContext(UserContext)
-  const { isAuthenticated, loginUser } = userContext
+  const { isAuthenticated, loginUser, clearError } = userContext
   const [input, setInput] = useState({
     email: '',
     password: '',
   })
-  const [error, setError] = useState('')
 
   const { email, password } = input
 
@@ -33,21 +32,20 @@ const Login = (props) => {
   }
 
   // display credentials error if no matching email/password
-  const displayInputError = () => {
-    if (error === 'credentials') {
-      return (
-        <div className='alert alert-danger' role='alert'>
-          Incorrect email or password. Please try again
-        </div>
-      )
-    }
-  }
+  // const displayInputError = () => {
+  //   if (error === 'credentials') {
+  //     return (
+  //       <div className='alert alert-danger' role='alert'>
+  //         Incorrect email or password. Please try again
+  //       </div>
+  //     )
+  //   }
+  // }
 
   return (
     <Fragment>
       <h1>Login</h1>
       <form onSubmit={onSubmitForm} className='mx-3'>
-        {displayInputError()}
         <input
           onChange={(e) => updateInput(e)}
           type='email'
@@ -66,7 +64,9 @@ const Login = (props) => {
         />
         <button className='btn btn-primary btn-block'>Submit</button>
       </form>
-      <Link to='/register'>Register</Link>
+      <Link to='/register' onClick={clearError}>
+        Register
+      </Link>
     </Fragment>
   )
 }

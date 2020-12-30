@@ -4,6 +4,8 @@ import {
   LOGIN_USER,
   REGISTER_USER,
   AUTH_FAILED,
+  SET_ERROR,
+  CLEAR_ERROR,
 } from '../types'
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -32,7 +34,17 @@ export default (state, action) => {
       return {
         ...state,
         user: {},
-        isAuthenticated: false
+        isAuthenticated: false,
+      }
+    case SET_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      }
+    case CLEAR_ERROR:
+      return {
+        ...state,
+        error: null,
       }
     default:
       return state

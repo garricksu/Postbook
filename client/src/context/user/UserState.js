@@ -7,6 +7,8 @@ import {
   LOGIN_USER,
   REGISTER_USER,
   AUTH_FAILED,
+  SET_ERROR,
+  CLEAR_ERROR,
 } from '../types'
 
 import setAuthToken from '../../utils/setAuthToken'
@@ -15,8 +17,8 @@ import axios from 'axios'
 const UserState = (props) => {
   const initialState = {
     user: {},
-    token: '',
-    error: '',
+    token: null,
+    error: null,
     isAuthenticated: false,
   }
 
@@ -31,20 +33,17 @@ const UserState = (props) => {
         JSON.stringify(body),
         config
       )
-      if (response.status === 401) {
-        const error = 'email'
-        setError(error)
-      } else {
-        const { token } = response.data
+      const { token } = response.data
 
-        dispatch({
-          type: REGISTER_USER,
-          payload: token,
-        })
+      dispatch({
+        type: REGISTER_USER,
+        payload: token,
+      })
 
-        getUser(token)
-      }
+      getUser(token)
+      clearError()
     } catch (err) {
+      setError('email')
       console.error(err.message)
     }
   }
@@ -58,18 +57,17 @@ const UserState = (props) => {
         JSON.stringify(body),
         config
       )
-      if (response.status === 401) {
-        setError('credentials')
-        // displayInputError()
-      } else {
-        const { token } = response.data
-        dispatch({
-          type: LOGIN_USER,
-          payload: token,
-        })
-        getUser(token)
-      }
+      const { token } = response.data
+
+      dispatch({
+        type: LOGIN_USER,
+        payload: token,
+      })
+
+      getUser(token)
+      clearError()
     } catch (err) {
+      setError('credentials')
       console.error(err.message)
     }
   }
@@ -98,7 +96,14 @@ const UserState = (props) => {
   }
 
   // Set Error
-  const setError = (error) => {}
+  const setError = (error) => {
+    dispatch({ type: SET_ERROR, payload: error })
+  }
+
+  // Clear Error
+  const clearError = () => {
+    dispatch({ type: CLEAR_ERROR })
+  }
 
   return (
     <UserContext.Provider
@@ -111,6 +116,8 @@ const UserState = (props) => {
         registerUser,
         getUser,
         clearUser,
+        setError,
+        clearError,
       }}
     >
       {props.children}

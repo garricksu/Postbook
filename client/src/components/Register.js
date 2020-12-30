@@ -4,7 +4,7 @@ import UserContext from '../context/user/UserContext'
 
 const Register = (props) => {
   const userContext = useContext(UserContext)
-  const { isAuthenticated, registerUser } = userContext
+  const { isAuthenticated, registerUser, setError, clearError } = userContext
   const [input, setInput] = useState({
     firstName: '',
     lastName: '',
@@ -14,7 +14,6 @@ const Register = (props) => {
     day: '',
     year: '',
   })
-  const [error, setError] = useState('')
 
   const { firstName, lastName, email, password, month, day, year } = input
 
@@ -80,35 +79,13 @@ const Register = (props) => {
     if (isNaN(validDate) || inputMonth !== validDate.getMonth()) {
       setError('dateError')
       return false
-    } else {
-      setError('')
-      return true
-    }
-  }
-
-  // Return alert based on error in input
-  const displayInputError = () => {
-    if (error === 'dateError') {
-      return (
-        <div className='alert alert-danger' role='alert'>
-          Please enter valid birthday
-        </div>
-      )
-    } else if (error === 'email') {
-      return (
-        <div className='alert alert-danger' role='alert'>
-          Email already exists. Please try again or{' '}
-          <Link to='/login'>login</Link>
-        </div>
-      )
-    }
+    } else return true
   }
 
   return (
     <Fragment>
       <h1>Register</h1>
       <form onSubmit={onSubmitForm} className='mx-3'>
-        {displayInputError()}
         <div className='form-group row'>
           <div className='col'>
             <input
@@ -157,9 +134,7 @@ const Register = (props) => {
                 className='form-control my-3'
                 required
               >
-                <option disabled selected value=''>
-                  Month
-                </option>
+                <option disabled selected value=''>Month</option>
                 <option value='Jan'>Jan</option>
                 <option value='Feb'>Feb</option>
                 <option value='Mar'>Mar</option>
@@ -204,7 +179,9 @@ const Register = (props) => {
           <button className='btn btn-primary btn-block'>Submit</button>
         </div>
       </form>
-      <Link to='/login'>Login</Link>
+      <Link to='/login' onClick={clearError}>
+        Login
+      </Link>
     </Fragment>
   )
 }
