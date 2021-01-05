@@ -1,6 +1,10 @@
 import UserState from './context/user/UserState'
-import setAuthToken from './utils/setAuthToken'
+
 import AuthCheck from './routing/AuthCheck'
+
+import setAuthToken from './utils/setAuthToken'
+import './App.scss'
+
 
 function App() {
   if(localStorage.token) {

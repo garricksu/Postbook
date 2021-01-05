@@ -1,15 +1,16 @@
 import React, { Fragment, useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+
 import UserContext from '../context/user/UserContext'
 
 const Login = (props) => {
   const userContext = useContext(UserContext)
   const { isAuthenticated, loginUser, clearError } = userContext
+
   const [input, setInput] = useState({
     email: '',
     password: '',
   })
-
   const { email, password } = input
 
   useEffect(() => {
@@ -31,42 +32,47 @@ const Login = (props) => {
     loginUser(body)
   }
 
-  // display credentials error if no matching email/password
-  // const displayInputError = () => {
-  //   if (error === 'credentials') {
-  //     return (
-  //       <div className='alert alert-danger' role='alert'>
-  //         Incorrect email or password. Please try again
-  //       </div>
-  //     )
-  //   }
-  // }
-
   return (
     <Fragment>
-      <h1>Login</h1>
-      <form onSubmit={onSubmitForm} className='mx-3'>
-        <input
-          onChange={(e) => updateInput(e)}
-          type='email'
-          name='email'
-          placeholder='Email'
-          className='form-control my-3'
-          required
-        />
-        <input
-          onChange={(e) => updateInput(e)}
-          type='password'
-          name='password'
-          placeholder='Password'
-          className='form-control my-3'
-          required
-        />
-        <button className='btn btn-primary btn-block'>Submit</button>
+      <form
+        onSubmit={onSubmitForm}
+        className='mx-3 my-3 mx-auto auth-form'
+        id='login-form'
+      >
+        <h2 className='text-center mb-3'>Login</h2>
+        <div className='form-group row'>
+          <div className='col'>
+            <input
+              onChange={(e) => updateInput(e)}
+              type='email'
+              name='email'
+              id='email'
+              placeholder='Email'
+              className='form-control'
+              required
+            />
+          </div>
+        </div>
+        <div className='form-group row'>
+          <div className='col'>
+            <input
+              onChange={(e) => updateInput(e)}
+              type='password'
+              name='password'
+              id='password'
+              placeholder='Password'
+              className='form-control'
+              required
+            />
+          </div>
+        </div>
+        <button className='btn btn-primary btn-block' id='submit'>
+          Submit
+        </button>
+        <Link to='/register' onClick={clearError}>
+          Register
+        </Link>
       </form>
-      <Link to='/register' onClick={clearError}>
-        Register
-      </Link>
     </Fragment>
   )
 }

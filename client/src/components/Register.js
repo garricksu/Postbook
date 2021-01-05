@@ -1,6 +1,9 @@
 import React, { Fragment, useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+
 import UserContext from '../context/user/UserContext'
+
+import * as Constants from '../utils/constants'
 
 const Register = (props) => {
   const userContext = useContext(UserContext)
@@ -16,6 +19,8 @@ const Register = (props) => {
   })
 
   const { firstName, lastName, email, password, month, day, year } = input
+
+  const { date } = Constants
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -77,23 +82,28 @@ const Register = (props) => {
     const validDate = new Date(`${day} ${month} ${year}`)
     const inputMonth = new Date(`1 ${month} ${year}`).getMonth()
     if (isNaN(validDate) || inputMonth !== validDate.getMonth()) {
-      setError('dateError')
+      setError(date)
       return false
     } else return true
   }
 
   return (
     <Fragment>
-      <h1>Register</h1>
-      <form onSubmit={onSubmitForm} className='mx-3'>
+      <form
+        onSubmit={onSubmitForm}
+        className='my-3 mx-auto auth-form'
+        id='register-form'
+      >
+        <h2 className='text-center'>Register</h2>
         <div className='form-group row'>
           <div className='col'>
             <input
               onChange={(e) => updateInput(e)}
               type='text'
               name='firstName'
+              id='first-name'
               placeholder='First Name'
-              className='form-control my-3'
+              className='form-control mt-3'
               required
             />
           </div>
@@ -102,8 +112,9 @@ const Register = (props) => {
               onChange={(e) => updateInput(e)}
               type='text'
               name='lastName'
+              id='last-name'
               placeholder='Last Name'
-              className='form-control my-3'
+              className='form-control mt-3'
               required
             />
           </div>
@@ -112,6 +123,7 @@ const Register = (props) => {
           onChange={(e) => updateInput(e)}
           type='email'
           name='email'
+          id='email'
           placeholder='Email'
           className='form-control my-3'
           required
@@ -120,6 +132,7 @@ const Register = (props) => {
           onChange={(e) => updateInput(e)}
           type='password'
           name='password'
+          id='password'
           placeholder='Password'
           className='form-control my-3'
           required
@@ -131,7 +144,7 @@ const Register = (props) => {
                 onChange={(e) => updateInput(e)}
                 name='month'
                 id='month'
-                className='form-control my-3'
+                className='form-control'
                 required
               >
                 <option disabled selected value=''>Month</option>
@@ -150,38 +163,37 @@ const Register = (props) => {
               </select>
             </label>
           </div>
-          <div className='col'>
+          <div className='col d-flex justify-content-center'>
             <label htmlFor='Month' className='col-form-label'>
               <select
                 onChange={(e) => updateInput(e)}
                 name='day'
                 id='day'
-                className='form-control my-3'
-                required
+                className='form-control'
               >
                 {getDays()}
               </select>
             </label>
           </div>
-          <div className='col'>
+          <div className='col d-flex justify-content-end'>
             <label htmlFor='Month' className='col-form-label'>
               <select
                 onChange={(e) => updateInput(e)}
                 name='year'
                 id='year'
-                className='form-control my-3'
+                className='form-control'
                 required
               >
                 {getYears()}
               </select>
             </label>
           </div>
-          <button className='btn btn-primary btn-block'>Submit</button>
         </div>
+        <button className='btn btn-primary btn-block'>Submit</button>
+        <Link to='/login' onClick={clearError}>
+          Login
+        </Link>
       </form>
-      <Link to='/login' onClick={clearError}>
-        Login
-      </Link>
     </Fragment>
   )
 }

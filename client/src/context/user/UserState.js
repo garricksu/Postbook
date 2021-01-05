@@ -11,8 +11,9 @@ import {
   CLEAR_ERROR,
 } from '../types'
 
-import setAuthToken from '../../utils/setAuthToken'
 import axios from 'axios'
+import setAuthToken from '../../utils/setAuthToken'
+import * as Constants from '../../utils/constants'
 
 const UserState = (props) => {
   const initialState = {
@@ -24,13 +25,15 @@ const UserState = (props) => {
 
   const [state, dispatch] = useReducer(UserReducer, initialState)
 
+  const { credentials, email } = Constants
+
   // Register User
   const registerUser = async (body) => {
     const config = { headers: { 'Content-Type': 'application/json' } }
     try {
       const response = await axios.post(
         'http://localhost:5000/api/auth/register',
-        JSON.stringify(body),
+        body,
         config
       )
       const { token } = response.data
@@ -43,7 +46,7 @@ const UserState = (props) => {
       getUser(token)
       clearError()
     } catch (err) {
-      setError('email')
+      setError(email)
       console.error(err.message)
     }
   }
@@ -54,7 +57,7 @@ const UserState = (props) => {
     try {
       const response = await axios.post(
         'http://localhost:5000/api/auth/login',
-        JSON.stringify(body),
+        body,
         config
       )
       const { token } = response.data
@@ -67,7 +70,7 @@ const UserState = (props) => {
       getUser(token)
       clearError()
     } catch (err) {
-      setError('credentials')
+      setError(credentials)
       console.error(err.message)
     }
   }

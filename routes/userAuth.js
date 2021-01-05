@@ -1,9 +1,11 @@
 const router = require('express').Router()
 const db = require('../db')
 const bcrypt = require('bcrypt')
-const jwtGenerator = require('../utils/jwtGenerator')
+
 const validInput = require('../middleware/validInput')
 const authorization = require('../middleware/authorization')
+
+const jwtGenerator = require('../utils/jwtGenerator')
 
 router.post('/register', validInput, async (req, res) => {
   try {

@@ -1,11 +1,12 @@
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
+const Constants = require('../utils/constant')
 
 module.exports = async (req, res, next) => {
   //Check token is valid
-
+  const {xAuthToken} = Constants
   try {
-    const jwtToken = req.header('x-auth-token')
+    const jwtToken = req.header(xAuthToken)
 
     if (!jwtToken) {
       return res.status(403).json('Unauthorized Access')

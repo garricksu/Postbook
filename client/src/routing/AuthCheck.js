@@ -1,23 +1,27 @@
-import React, { Fragment, useState, useEffect, useContext } from 'react'
-
+import React, { useEffect, useContext, Fragment } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
+import UserContext from '../context/user/UserContext'
+
+import Navbar from '../components/layout/Navbar'
 import Alerts from '../utils/Alerts'
 import Dashboard from '../components/Dashboard'
 import Login from '../components/Login'
 import Register from '../components/Register'
 import PrivateRoute from '../routing/PrivateRoute'
-import UserContext from '../context/user/UserContext'
+
 
 const AuthCheck = () => {
   const userContext = useContext(UserContext)
-  const { getUser } = userContext
+  const { getUser} = userContext
 
   useEffect(() => {
     getUser()
   }, [])
 
   return (
+    <Fragment>
+    <Navbar />
     <div className='container'>
       <Router>
         <Alerts />
@@ -26,6 +30,8 @@ const AuthCheck = () => {
         <PrivateRoute exact path='/dashboard' component={Dashboard} />
       </Router>
     </div>
+    </Fragment>
+    
   )
 }
 
