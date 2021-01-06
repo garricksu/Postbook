@@ -1,13 +1,18 @@
 import React, { Fragment, useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import UserContext from '../context/user/UserContext'
+import AuthContext from '../context/auth/AuthContext'
+import NavContext from '../context/nav/NavContext'
 
 import * as Constants from '../utils/constants'
 
 const Register = (props) => {
-  const userContext = useContext(UserContext)
-  const { isAuthenticated, registerUser, setError, clearError } = userContext
+  const authContext = useContext(AuthContext)
+  const { isAuthenticated, registerUser, error, setError, clearError } = authContext
+
+  const navContext = useContext(NavContext)
+  const { setActiveLink } = navContext
+
   const [input, setInput] = useState({
     firstName: '',
     lastName: '',
@@ -24,35 +29,38 @@ const Register = (props) => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      props.history.push('/dashboard')
+      props.history.push('/')
+      setActiveLink(0)
+    } else {
+      setActiveLink(2)
     }
   }, [isAuthenticated, props.history])
 
   // List of dates for select menu
   const getDays = () => {
-    let days = [
-      <option disabled selected value=''>
-        Day
-      </option>,
-    ]
+    let days = []
     for (let i = 1; i <= 31; i++) {
-      days.push(<option value={i}>{i}</option>)
+      days.push(i)
     }
-    return days
+    return days.map((day, index) => (
+      <option key={index} value={day}>
+        {day}
+      </option>
+    ))
   }
 
   //  List of years for select menu
   const getYears = () => {
-    let years = [
-      <option disabled selected value=''>
-        Year
-      </option>,
-    ]
+    let years = []
     const currentYear = new Date().getFullYear()
-    for (let i = currentYear; i >= currentYear - 120; i--) {
-      years.push(<option value={i}>{i}</option>)
+    for (let i = currentYear; i >= 1905; i--) {
+      years.push(i)
     }
-    return years
+    return years.map((year, index) => (
+      <option key={index} value={year}>
+        {year}
+      </option>
+    ))
   }
 
   const updateInput = (e) => {
@@ -81,6 +89,7 @@ const Register = (props) => {
   const checkInputDate = () => {
     const validDate = new Date(`${day} ${month} ${year}`)
     const inputMonth = new Date(`1 ${month} ${year}`).getMonth()
+    console.log(input)
     if (isNaN(validDate) || inputMonth !== validDate.getMonth()) {
       setError(date)
       return false
@@ -89,6 +98,7 @@ const Register = (props) => {
 
   return (
     <Fragment>
+      {!error ? <div className="my-5 alert-size"></div> : null}
       <form
         onSubmit={onSubmitForm}
         className='my-3 mx-auto auth-form'
@@ -147,7 +157,7 @@ const Register = (props) => {
                 className='form-control'
                 required
               >
-                <option disabled selected value=''>Month</option>
+                <option disabled default value=''>Month</option>
                 <option value='Jan'>Jan</option>
                 <option value='Feb'>Feb</option>
                 <option value='Mar'>Mar</option>
@@ -171,6 +181,9 @@ const Register = (props) => {
                 id='day'
                 className='form-control'
               >
+                <option disabled default value=''>
+                  Day
+                </option>
                 {getDays()}
               </select>
             </label>
@@ -184,6 +197,9 @@ const Register = (props) => {
                 className='form-control'
                 required
               >
+                <option disabled default value=''>
+                  Year
+                </option>
                 {getYears()}
               </select>
             </label>

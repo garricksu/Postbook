@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react'
-import UserContext from './UserContext'
-import UserReducer from './UserReducer'
+import AuthContext from './AuthContext'
+import AuthReducer from './AuthReducer'
 import {
   GET_USER,
   CLEAR_USER,
@@ -15,7 +15,7 @@ import axios from 'axios'
 import setAuthToken from '../../utils/setAuthToken'
 import * as Constants from '../../utils/constants'
 
-const UserState = (props) => {
+const AuthState = (props) => {
   const initialState = {
     user: {},
     token: null,
@@ -23,7 +23,7 @@ const UserState = (props) => {
     isAuthenticated: false,
   }
 
-  const [state, dispatch] = useReducer(UserReducer, initialState)
+  const [state, dispatch] = useReducer(AuthReducer, initialState)
 
   const { credentials, email } = Constants
 
@@ -101,6 +101,8 @@ const UserState = (props) => {
   // Set Error
   const setError = (error) => {
     dispatch({ type: SET_ERROR, payload: error })
+
+    setTimeout(() => dispatch({ type: CLEAR_ERROR }), 5000)
   }
 
   // Clear Error
@@ -109,7 +111,7 @@ const UserState = (props) => {
   }
 
   return (
-    <UserContext.Provider
+    <AuthContext.Provider
       value={{
         user: state.user,
         token: state.token,
@@ -124,8 +126,8 @@ const UserState = (props) => {
       }}
     >
       {props.children}
-    </UserContext.Provider>
+    </AuthContext.Provider>
   )
 }
 
-export default UserState
+export default AuthState

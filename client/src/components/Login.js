@@ -1,11 +1,15 @@
 import React, { Fragment, useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import UserContext from '../context/user/UserContext'
+import AuthContext from '../context/auth/AuthContext'
+import NavContext from '../context/nav/NavContext'
 
 const Login = (props) => {
-  const userContext = useContext(UserContext)
-  const { isAuthenticated, loginUser, clearError } = userContext
+  const authContext = useContext(AuthContext)
+  const { isAuthenticated, loginUser, error, clearError } = authContext
+
+  const navContext = useContext(NavContext)
+  const { setActiveLink } = navContext
 
   const [input, setInput] = useState({
     email: '',
@@ -15,7 +19,9 @@ const Login = (props) => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      props.history.push('/dashboard')
+      props.history.push('/')
+    } else {
+      setActiveLink(1)
     }
   }, [isAuthenticated, props.history])
 
@@ -34,6 +40,7 @@ const Login = (props) => {
 
   return (
     <Fragment>
+      {!error ? <div className="my-5 alert-size"></div> : null}
       <form
         onSubmit={onSubmitForm}
         className='mx-3 my-3 mx-auto auth-form'

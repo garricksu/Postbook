@@ -1,17 +1,18 @@
 import React, { useContext } from 'react'
-import { Route, Redirect } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
-import UserContext from '../context/user/UserContext'
+import AuthContext from '../context/auth/AuthContext'
+import Home from '../components/Home'
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const userContext = useContext(UserContext)
+  const authContext = useContext(AuthContext)
+  const { isAuthenticated } = authContext
 
-  const { isAuthenticated } = userContext
   return (
     <Route
       {...rest}
       render={(props) =>
-        !isAuthenticated ? <Redirect to='/login' /> : <Component {...props} />
+        !isAuthenticated ? <Home /> : <Component {...props} />
       }
     />
   )

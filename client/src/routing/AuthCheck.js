@@ -1,7 +1,7 @@
-import React, { useEffect, useContext, Fragment } from 'react'
+import React, { useEffect, useContext} from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-import UserContext from '../context/user/UserContext'
+import AuthContext from '../context/auth/AuthContext'
 
 import Navbar from '../components/layout/Navbar'
 import Alerts from '../utils/Alerts'
@@ -10,28 +10,22 @@ import Login from '../components/Login'
 import Register from '../components/Register'
 import PrivateRoute from '../routing/PrivateRoute'
 
-
 const AuthCheck = () => {
-  const userContext = useContext(UserContext)
-  const { getUser} = userContext
+  const authContext = useContext(AuthContext)
+  const { getUser, isAuthenticated } = authContext
 
   useEffect(() => {
     getUser()
   }, [])
 
   return (
-    <Fragment>
-    <Navbar />
-    <div className='container'>
-      <Router>
-        <Alerts />
-        <Route exact path='/login' component={Login} />
-        <Route exact path='/register' component={Register} />
-        <PrivateRoute exact path='/dashboard' component={Dashboard} />
-      </Router>
-    </div>
-    </Fragment>
-    
+    <Router>
+      <Navbar />
+      <Alerts />
+      <Route exact path='/login' component={Login} />
+      <Route exact path='/register' component={Register} />
+      <PrivateRoute exact path='/' component={Dashboard} />
+    </Router>
   )
 }
 
