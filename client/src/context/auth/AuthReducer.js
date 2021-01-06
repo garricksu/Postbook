@@ -1,6 +1,6 @@
 import {
-  GET_USER,
-  CLEAR_USER,
+  GET_LOGGED_IN_USER,
+  CLEAR_LOGGED_IN_USER,
   LOGIN_USER,
   REGISTER_USER,
   AUTH_FAILED,
@@ -18,18 +18,18 @@ export default (state, action) => {
         ...state,
         isAuthenticated: true,
       }
-    case GET_USER:
+    case GET_LOGGED_IN_USER:
       return {
         ...state,
         isAuthenticated: true,
-        user: action.payload,
+        loggedInUser: action.payload,
       }
     case AUTH_FAILED:
       return {
         ...state,
         isAuthenticated: false,
       }
-    case CLEAR_USER:
+    case CLEAR_LOGGED_IN_USER:
       localStorage.removeItem('token')
       return {
         ...state,

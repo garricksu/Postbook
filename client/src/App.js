@@ -1,5 +1,6 @@
 import AuthState from './context/auth/AuthState'
 import NavState from './context/nav/NavState'
+import UserState from './context/user/UserState'
 
 import AuthCheck from './routing/AuthCheck'
 
@@ -13,7 +14,9 @@ function App() {
   return (
     <AuthState>
       <NavState>
-        <AuthCheck />
+        <UserState>
+          <AuthCheck />
+        </UserState>
       </NavState>
     </AuthState>
   )

@@ -1,8 +1,8 @@
 import React, { Fragment, useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import AuthContext from '../context/auth/AuthContext'
-import NavContext from '../context/nav/NavContext'
+import AuthContext from '../../context/auth/AuthContext'
+import NavContext from '../../context/nav/NavContext'
 
 const Login = (props) => {
   const authContext = useContext(AuthContext)

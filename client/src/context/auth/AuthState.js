@@ -2,8 +2,8 @@ import React, { useReducer } from 'react'
 import AuthContext from './AuthContext'
 import AuthReducer from './AuthReducer'
 import {
-  GET_USER,
-  CLEAR_USER,
+  GET_LOGGED_IN_USER,
+  CLEAR_LOGGED_IN_USER,
   LOGIN_USER,
   REGISTER_USER,
   AUTH_FAILED,
@@ -17,7 +17,7 @@ import * as Constants from '../../utils/constants'
 
 const AuthState = (props) => {
   const initialState = {
-    user: {},
+    loggedInUser: {},
     token: null,
     error: null,
     isAuthenticated: false,
@@ -43,7 +43,7 @@ const AuthState = (props) => {
         payload: token,
       })
 
-      getUser(token)
+      getLoggedInUser(token)
       clearError()
     } catch (err) {
       setError(email)
@@ -67,7 +67,7 @@ const AuthState = (props) => {
         payload: token,
       })
 
-      getUser(token)
+      getLoggedInUser(token)
       clearError()
     } catch (err) {
       setError(credentials)
@@ -75,15 +75,15 @@ const AuthState = (props) => {
     }
   }
 
-  // Get User
-  const getUser = async () => {
+  // Get Logged In User
+  const getLoggedInUser = async () => {
     if (localStorage.token) {
       setAuthToken(localStorage.token)
     }
     try {
-      const response = await axios.get('http://localhost:5000/dashboard')
+      const response = await axios.get('http://localhost:5000/api/user/loggedInUser')
       dispatch({
-        type: GET_USER,
+        type: GET_LOGGED_IN_USER,
         payload: response.data,
       })
     } catch (err) {
@@ -94,8 +94,8 @@ const AuthState = (props) => {
   }
 
   // Clear user
-  const clearUser = () => {
-    dispatch({ type: CLEAR_USER })
+  const clearLoggedInUser = () => {
+    dispatch({ type: CLEAR_LOGGED_IN_USER })
   }
 
   // Set Error
@@ -113,14 +113,14 @@ const AuthState = (props) => {
   return (
     <AuthContext.Provider
       value={{
-        user: state.user,
+        loggedInUser: state.loggedInUser,
         token: state.token,
         error: state.error,
         isAuthenticated: state.isAuthenticated,
         loginUser,
         registerUser,
-        getUser,
-        clearUser,
+        getLoggedInUser,
+        clearLoggedInUser,
         setError,
         clearError,
       }}
