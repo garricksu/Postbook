@@ -1,4 +1,5 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import {withRouter} from 'react-router-dom'
 
 import UserContext from '../../context/user/UserContext'
 
@@ -6,12 +7,15 @@ import profilePicture from '../../assets/images/profile-picture.png'
 
 const Profile = (props) => {
   const userContext = useContext(UserContext)
-  const { getSelectedUser, selectedUser } = userContext
-  
+  const { getSelectedUser, selectedUser: {firstName, lastName, birthday, bio, occupation} } = userContext
 
   useEffect(() => {
     getSelectedUser(props.match.params.id)
-  }, [])
+  },[])
+
+
+
+
 
   return (
     <div>
@@ -22,10 +26,10 @@ const Profile = (props) => {
         id='profile-picture'
       />
       <h1>
-        
+        {firstName}
       </h1>
     </div>
   )
 }
 
-export default Profile
+export default withRouter(Profile)

@@ -23,6 +23,7 @@ router.get('/loggedInUser', authorization, async (req, res) => {
 router.get('/profile', authorization, async (req, res) => {
   // send back current logged in user after token validation
   try {
+    console.log(req)
     const user = await db.query('SELECT * FROM user_profile WHERE user_id=$1', [
       req.query.selectedUserId,
     ])

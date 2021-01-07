@@ -7,7 +7,14 @@ import axios from 'axios'
 
 const UserState = (props) => {
   const initialState = {
-    selectedUser: null,
+    selectedUser: {
+      id: '',
+      firstName: '',
+      lastName: '',
+      birthday: '',
+      bio: '',
+      occupation: ''
+    },
   }
 
   const [state, dispatch] = useReducer(UserReducer, initialState)
@@ -23,7 +30,6 @@ const UserState = (props) => {
           },
         }
       )
-      console.log(response.data)
       dispatch({
         type: GET_SELECTED_USER,
         payload: response.data,
