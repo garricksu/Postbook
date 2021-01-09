@@ -1,7 +1,8 @@
 import React, { useReducer } from 'react'
+
 import UserContext from './UserContext'
 import UserReducer from './UserReducer'
-import { GET_SELECTED_USER } from '../types'
+import { GET_SELECTED_USER, CLEAR_SELECTED_USER } from '../types'
 
 import axios from 'axios'
 
@@ -11,9 +12,10 @@ const UserState = (props) => {
       id: '',
       firstName: '',
       lastName: '',
-      birthday: '',
+      birthday: { month: '', day: '', year: '' },
+      age: '',
       bio: '',
-      occupation: ''
+      occupation: '',
     },
   }
 
@@ -36,7 +38,27 @@ const UserState = (props) => {
       })
     } catch (err) {
       console.error(err.message)
+      clearSelectedUser()
     }
+  }
+
+  // Update user profile
+  const updateProfile = async (body) => {
+    const config = { headers: { 'Content-Type': 'application/json' } }
+    try {
+      const response = await axios.post(
+        'http://localhost:5000/api/user/profile/update',
+        body,
+        config
+      )
+      getSelectedUser(response.data.id)
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+
+  const clearSelectedUser = () => {
+    dispatch({ type: CLEAR_SELECTED_USER, payload: initialState.selectedUser })
   }
 
   return (
@@ -44,6 +66,7 @@ const UserState = (props) => {
       value={{
         selectedUser: state.selectedUser,
         getSelectedUser,
+        updateProfile,
       }}
     >
       {props.children}

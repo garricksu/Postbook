@@ -20,7 +20,7 @@ const Navbar = () => {
     if (isAuthenticated) {
       getLoggedInUser()
     }
-  }, [])
+  }, [isAuthenticated])
 
   const generalLinks = [
     { name: 'Home', route: '/', id: 'home-link' },
@@ -29,7 +29,7 @@ const Navbar = () => {
   ]
   const userLinks = [
     { name: 'Home', route: '/', id: 'home-link' },
-    { name: 'Profile', route: `user/${id}`, id: 'profile-link' },
+    { name: 'Profile', route: `/user/${id}`, id: 'profile-link' },
     { name: 'Settings', route: '/', id: 'settings-link' },
   ]
 
@@ -53,7 +53,11 @@ const Navbar = () => {
           {userLinks.map((link, index) => (
             <li className='nav-item' key={index}>
               <Link
-                className={index === active ? 'active nav-link' : 'nav-link'}
+                className={
+                  index === active
+                    ? 'active active-underline nav-link'
+                    : 'nav-link'
+                }
                 id={link.id}
                 to={link.route}
                 onClick={() => changeActiveLink(index)}
@@ -68,7 +72,11 @@ const Navbar = () => {
           {generalLinks.map((link, index) => (
             <li className='nav-item' key={index}>
               <Link
-                className={index === active ? 'active nav-link' : 'nav-link'}
+                className={
+                  index === active
+                    ? 'active active-underline nav-link'
+                    : 'nav-link'
+                }
                 id={link.id}
                 to={link.route}
                 onClick={() => changeActiveLink(index)}
