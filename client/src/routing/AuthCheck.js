@@ -1,4 +1,4 @@
-import React, { useEffect, useContext} from 'react'
+import React, { useEffect, useContext } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import AuthContext from '../context/auth/AuthContext'
@@ -11,12 +11,12 @@ import Register from '../components/pages/Register'
 import Dashboard from '../components/pages/Dashboard'
 import Profile from '../components/pages/Profile'
 
-
 const AuthCheck = () => {
   const authContext = useContext(AuthContext)
-  const { getLoggedInUser } = authContext
+  const { getLoggedInUser, setLoading } = authContext
 
   useEffect(() => {
+    setLoading(true)
     getLoggedInUser()
   }, [])
 
@@ -27,7 +27,7 @@ const AuthCheck = () => {
       <Route exact path='/login' component={Login} />
       <Route exact path='/register' component={Register} />
       <PrivateRoute exact path='/' component={Dashboard} />
-      <PrivateRoute exact path='/user/:id' component={Profile}/>
+      <PrivateRoute exact path='/user/:id' component={Profile} />
     </Router>
   )
 }

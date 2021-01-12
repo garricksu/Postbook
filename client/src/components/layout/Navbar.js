@@ -11,6 +11,7 @@ const Navbar = () => {
     clearError,
     loggedInUser: { id },
     getLoggedInUser,
+    isLoading,
   } = authContext
 
   const navContext = useContext(NavContext)
@@ -48,9 +49,9 @@ const Navbar = () => {
       >
         Postbook
       </Link>
-      {isAuthenticated ? (
+      {!isAuthenticated && !isLoading ? (
         <ul className='navbar-nav ml-auto' id='nav-list'>
-          {userLinks.map((link, index) => (
+          {generalLinks.map((link, index) => (
             <li className='nav-item' key={index}>
               <Link
                 className={
@@ -69,7 +70,7 @@ const Navbar = () => {
         </ul>
       ) : (
         <ul className='navbar-nav ml-auto' id='nav-list'>
-          {generalLinks.map((link, index) => (
+          {userLinks.map((link, index) => (
             <li className='nav-item' key={index}>
               <Link
                 className={

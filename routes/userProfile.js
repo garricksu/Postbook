@@ -28,7 +28,7 @@ router.get('/loggedInUser', authorization, async (req, res) => {
 router.get('/profile', authorization, async (req, res) => {
   try {
     if (!validUUID.test(req.query.selectedUserId)) {
-      throw 'Invalid input for ID'
+      throw 'Invalid input for ID, requires UUID format'
     }
     const user = await db.query('SELECT * FROM user_profile WHERE user_id=$1', [
       req.query.selectedUserId,

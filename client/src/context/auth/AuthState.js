@@ -9,6 +9,7 @@ import {
   AUTH_FAILED,
   SET_ERROR,
   CLEAR_ERROR,
+  SET_LOADING
 } from '../types'
 
 import axios from 'axios'
@@ -21,6 +22,7 @@ const AuthState = (props) => {
     token: null,
     error: null,
     isAuthenticated: false,
+    isLoading: true
   }
 
   const [state, dispatch] = useReducer(AuthReducer, initialState)
@@ -110,6 +112,10 @@ const AuthState = (props) => {
     dispatch({ type: CLEAR_ERROR })
   }
 
+  const setLoading = (loading) => {
+    dispatch({type: SET_LOADING, payload: loading})
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -117,12 +123,14 @@ const AuthState = (props) => {
         token: state.token,
         error: state.error,
         isAuthenticated: state.isAuthenticated,
+        isLoading: state.isLoading,
         loginUser,
         registerUser,
         getLoggedInUser,
         clearLoggedInUser,
         setError,
         clearError,
+        setLoading,
       }}
     >
       {props.children}

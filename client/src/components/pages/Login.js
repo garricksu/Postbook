@@ -40,7 +40,7 @@ const Login = (props) => {
 
   return (
     <Fragment>
-      {!error ? <div className="my-5 alert-size"></div> : null}
+      {!error ? <div className='my-5 alert-size'></div> : null}
       <form
         onSubmit={onSubmitForm}
         className='mx-3 my-3 mx-auto auth-form'

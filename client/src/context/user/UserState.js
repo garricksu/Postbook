@@ -2,7 +2,7 @@ import React, { useReducer } from 'react'
 
 import UserContext from './UserContext'
 import UserReducer from './UserReducer'
-import { GET_SELECTED_USER, CLEAR_SELECTED_USER } from '../types'
+import { GET_SELECTED_USER, CLEAR_SELECTED_USER, SET_LOADING } from '../types'
 
 import axios from 'axios'
 
@@ -17,6 +17,7 @@ const UserState = (props) => {
       bio: '',
       occupation: '',
     },
+    isLoading: true
   }
 
   const [state, dispatch] = useReducer(UserReducer, initialState)
@@ -37,7 +38,8 @@ const UserState = (props) => {
         payload: response.data,
       })
     } catch (err) {
-      console.error(err.message)
+      console.log(err)
+      setLoading(false)
       clearSelectedUser()
     }
   }
@@ -61,10 +63,15 @@ const UserState = (props) => {
     dispatch({ type: CLEAR_SELECTED_USER, payload: initialState.selectedUser })
   }
 
+  const setLoading = (loading) => {
+    dispatch({type: SET_LOADING, payload: loading})
+  }
+
   return (
     <UserContext.Provider
       value={{
         selectedUser: state.selectedUser,
+        isLoading: state.isLoading,
         getSelectedUser,
         updateProfile,
       }}

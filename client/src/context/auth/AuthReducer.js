@@ -6,6 +6,7 @@ import {
   AUTH_FAILED,
   SET_ERROR,
   CLEAR_ERROR,
+  SET_LOADING
 } from '../types'
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -23,12 +24,9 @@ export default (state, action) => {
         ...state,
         isAuthenticated: true,
         loggedInUser: action.payload,
+        isLoading: false
       }
     case AUTH_FAILED:
-      return {
-        ...state,
-        isAuthenticated: false,
-      }
     case CLEAR_LOGGED_IN_USER:
       localStorage.removeItem('token')
       return {
@@ -45,6 +43,11 @@ export default (state, action) => {
       return {
         ...state,
         error: null,
+      }
+    case SET_LOADING:
+      return {
+        ...state,
+        isLoading: action.payload
       }
     default:
       return state

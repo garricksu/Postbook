@@ -7,6 +7,7 @@ export default (state, action) => {
       return {
         ...state,
         active: action.payload,
+        isLoading: false
       }
     default:
       return state
