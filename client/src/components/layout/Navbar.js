@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 import AuthContext from '../../context/auth/AuthContext'
 import NavContext from '../../context/nav/NavContext'
+import UserContext from '../../context/user/UserContext'
 
 const Navbar = () => {
   const authContext = useContext(AuthContext)
@@ -17,11 +18,21 @@ const Navbar = () => {
   const navContext = useContext(NavContext)
   const { active, setActiveLink } = navContext
 
+  const userContext = useContext(UserContext)
+  const {selectedUser } = userContext
+
   useEffect(() => {
     if (isAuthenticated) {
       getLoggedInUser()
+      setProfileIndex()
     }
   }, [isAuthenticated])
+
+  const setProfileIndex = () => {
+    if (id === selectedUser.id && !userContext.isLoading) {
+      setActiveLink(1)
+    }
+  }
 
   const generalLinks = [
     { name: 'Home', route: '/', id: 'home-link' },

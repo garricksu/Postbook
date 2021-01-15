@@ -40,16 +40,29 @@ const Profile = (props) => {
 
   useEffect(() => {
     getSelectedUser(props.match.params.id)
-    if (props.match.params.id === loggedInUser.id) {
-      setActiveLink(1)
-    } else {
-      setActiveLink(-1)
-    }
+    checkCurrentUser()
   }, [props.match.params.id])
+
+  const checkCurrentUser = () => {
+    if (!id === loggedInUser.id && !isLoading) {
+      setActiveLink(-1)
+    } else {
+      setActiveLink(1)
+    }
+  }
 
   const toggleEditing = (e, bool) => {
     e.preventDefault()
-    setUpdatedDetails({ updatedBio: bio, updatedOccupation: occupation })
+    if (occupation !== null) {
+      setUpdatedDetails((updatedDetails) => {
+        return { ...updatedDetails, updatedOccupation: occupation }
+      })
+    }
+    if (bio !== null) {
+      setUpdatedDetails((updatedDetails) => {
+        return { ...updatedDetails, updatedBio: bio }
+      })
+    }
     setEditing(bool)
   }
 

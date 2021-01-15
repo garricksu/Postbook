@@ -33,6 +33,7 @@ export default (state, action) => {
         ...state,
         user: {},
         isAuthenticated: false,
+        isLoading: false
       }
     case SET_ERROR:
       return {

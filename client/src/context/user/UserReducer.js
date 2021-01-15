@@ -13,6 +13,7 @@ export default (state, action) => {
       return {
         ...state,
         selectedUser: action.payload,
+        isLoading: false
       }
     case SET_LOADING:
       return {
