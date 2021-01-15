@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import NavContext from '../context/nav/NavContext'
+import NavContext from '../../context/nav/NavContext'
 
 const Home = () => {
   const navContext = useContext(NavContext)

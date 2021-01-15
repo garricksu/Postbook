@@ -1,28 +1,28 @@
 import React, { Fragment, useEffect, useContext } from 'react'
 
-import AuthContext from '../context/auth/AuthContext'
-import NavContext from '../context/nav/NavContext'
+import AuthContext from '../../context/auth/AuthContext'
+import NavContext from '../../context/nav/NavContext'
 
 const Dashboard = () => {
   const authContext = useContext(AuthContext)
 
   const {
-    getUser,
-    clearUser,
-    user: { firstName, lastName, id },
+    getLoggedInUser,
+    clearLoggedInUser,
+    loggedInUser: { firstName, lastName, id },
   } = authContext
 
   const navContext = useContext(NavContext)
   const { setActiveLink } = navContext
 
   useEffect(() => {
-    getUser()
+    getLoggedInUser()
     setActiveLink(0)
   }, [])
 
   const logout = (e) => {
     e.preventDefault()
-    clearUser()
+    clearLoggedInUser()
   }
 
   return (
