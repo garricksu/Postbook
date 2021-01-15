@@ -24,6 +24,7 @@ const Profile = (props) => {
       occupation,
     },
     isLoading,
+    setLoading,
     updateProfile,
   } = userContext
 
@@ -40,16 +41,8 @@ const Profile = (props) => {
 
   useEffect(() => {
     getSelectedUser(props.match.params.id)
-    checkCurrentUser()
+    setActiveLink(1)
   }, [props.match.params.id])
-
-  const checkCurrentUser = () => {
-    if (!id === loggedInUser.id && !isLoading) {
-      setActiveLink(-1)
-    } else {
-      setActiveLink(1)
-    }
-  }
 
   const toggleEditing = (e, bool) => {
     e.preventDefault()
