@@ -131,12 +131,13 @@ const Profile = (props) => {
                 <button
                   className='btn btn-primary btn-block'
                   onClick={(e) => toggleEditing(e, false)}
+                  id='cancel-edit-button'
                 >
                   Cancel
                 </button>
               </div>
               <div className='col'>
-                <button className='btn btn-primary btn-block' id='submit'>
+                <button className='btn btn-primary btn-block' id='submit save-user-details-button'>
                   Save
                 </button>
               </div>
@@ -165,6 +166,7 @@ const Profile = (props) => {
               <button
                 className='btn btn-primary btn-block'
                 onClick={(e) => toggleEditing(e, true)}
+                id='edit-user-details-button'
               >
                 Edit
               </button>
