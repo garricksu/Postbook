@@ -22,6 +22,7 @@ $primary: #7900e3;
 }
 
 // profile page
+// about secion
 .user-container {
   max-width: 300px;
   .profile-details {
@@ -51,6 +52,11 @@ $primary: #7900e3;
       resize: none;
     }
   }
+}
+
+// profile feed
+.profile-feed {
+  max-width: 500px;
 }
 
 @import 'bootstrap';
