@@ -1,12 +1,11 @@
 import {
-  GET_LOGGED_IN_USER,
-  CLEAR_LOGGED_IN_USER,
+  GET_USER,
+  CLEAR_USER,
   LOGIN_USER,
   REGISTER_USER,
   AUTH_FAILED,
   SET_ERROR,
   CLEAR_ERROR,
-  SET_LOADING
 } from '../types'
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -19,21 +18,23 @@ export default (state, action) => {
         ...state,
         isAuthenticated: true,
       }
-    case GET_LOGGED_IN_USER:
+    case GET_USER:
       return {
         ...state,
         isAuthenticated: true,
-        loggedInUser: action.payload,
-        isLoading: false
+        user: action.payload,
       }
     case AUTH_FAILED:
-    case CLEAR_LOGGED_IN_USER:
+      return {
+        ...state,
+        isAuthenticated: false,
+      }
+    case CLEAR_USER:
       localStorage.removeItem('token')
       return {
         ...state,
         user: {},
         isAuthenticated: false,
-        isLoading: false
       }
     case SET_ERROR:
       return {
@@ -44,11 +45,6 @@ export default (state, action) => {
       return {
         ...state,
         error: null,
-      }
-    case SET_LOADING:
-      return {
-        ...state,
-        isLoading: action.payload
       }
     default:
       return state

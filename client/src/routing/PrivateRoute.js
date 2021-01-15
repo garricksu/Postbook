@@ -2,17 +2,17 @@ import React, { useContext } from 'react'
 import { Route } from 'react-router-dom'
 
 import AuthContext from '../context/auth/AuthContext'
-import Home from '../components/pages/Home'
+import Home from '../components/Home'
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const authContext = useContext(AuthContext)
-  const { isAuthenticated, isLoading } = authContext
+  const { isAuthenticated } = authContext
 
   return (
     <Route
       {...rest}
       render={(props) =>
-        !isAuthenticated && !isLoading ? <Home /> : <Component {...props} />
+        !isAuthenticated ? <Home /> : <Component {...props} />
       }
     />
   )

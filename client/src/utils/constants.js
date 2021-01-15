@@ -5,4 +5,3 @@ export const email = 'email'
 
 // x-auth token header
 export const xAuthToken = 'x-auth-token'
-

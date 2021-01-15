@@ -2,14 +2,13 @@ import React, { useReducer } from 'react'
 import AuthContext from './AuthContext'
 import AuthReducer from './AuthReducer'
 import {
-  GET_LOGGED_IN_USER,
-  CLEAR_LOGGED_IN_USER,
+  GET_USER,
+  CLEAR_USER,
   LOGIN_USER,
   REGISTER_USER,
   AUTH_FAILED,
   SET_ERROR,
   CLEAR_ERROR,
-  SET_LOADING
 } from '../types'
 
 import axios from 'axios'
@@ -18,11 +17,10 @@ import * as Constants from '../../utils/constants'
 
 const AuthState = (props) => {
   const initialState = {
-    loggedInUser: {},
+    user: {},
     token: null,
     error: null,
     isAuthenticated: false,
-    isLoading: true
   }
 
   const [state, dispatch] = useReducer(AuthReducer, initialState)
@@ -45,7 +43,7 @@ const AuthState = (props) => {
         payload: token,
       })
 
-      getLoggedInUser(token)
+      getUser(token)
       clearError()
     } catch (err) {
       setError(email)
@@ -69,7 +67,7 @@ const AuthState = (props) => {
         payload: token,
       })
 
-      getLoggedInUser(token)
+      getUser(token)
       clearError()
     } catch (err) {
       setError(credentials)
@@ -77,15 +75,15 @@ const AuthState = (props) => {
     }
   }
 
-  // Get Logged In User
-  const getLoggedInUser = async () => {
+  // Get User
+  const getUser = async () => {
     if (localStorage.token) {
       setAuthToken(localStorage.token)
     }
     try {
-      const response = await axios.get('http://localhost:5000/api/user/loggedInUser')
+      const response = await axios.get('http://localhost:5000/dashboard')
       dispatch({
-        type: GET_LOGGED_IN_USER,
+        type: GET_USER,
         payload: response.data,
       })
     } catch (err) {
@@ -96,8 +94,8 @@ const AuthState = (props) => {
   }
 
   // Clear user
-  const clearLoggedInUser = () => {
-    dispatch({ type: CLEAR_LOGGED_IN_USER })
+  const clearUser = () => {
+    dispatch({ type: CLEAR_USER })
   }
 
   // Set Error
@@ -112,25 +110,19 @@ const AuthState = (props) => {
     dispatch({ type: CLEAR_ERROR })
   }
 
-  const setLoading = (loading) => {
-    dispatch({type: SET_LOADING, payload: loading})
-  }
-
   return (
     <AuthContext.Provider
       value={{
-        loggedInUser: state.loggedInUser,
+        user: state.user,
         token: state.token,
         error: state.error,
         isAuthenticated: state.isAuthenticated,
-        isLoading: state.isLoading,
         loginUser,
         registerUser,
-        getLoggedInUser,
-        clearLoggedInUser,
+        getUser,
+        clearUser,
         setError,
         clearError,
-        setLoading,
       }}
     >
       {props.children}

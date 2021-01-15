@@ -11,7 +11,7 @@ app.use(cors())
 
 app.use('/api/auth', require('./routes/userAuth'))
 
-app.use('/api/user', require('./routes/userProfile'))
+app.use('/dashboard', require('./routes/dashboard'))
 
 app.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`)

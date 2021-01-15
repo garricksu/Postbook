@@ -1,56 +1,13 @@
-$primary: #7900e3;
-
-// navbar
-.active-underline {
-    text-decoration: underline !important;
-    text-decoration-color: $primary !important;
-    text-decoration-thickness: 3px !important;
-    text-underline-offset: 5px !important;
-}
-
 // alert
 .alert-size {
   height: 50px;
-  max-width: 500px;
+  max-width:500px;
 }
 
 // auth
 .auth-form {
   max-width: 500px;
   input {
+
   }
 }
-
-// profile page
-.user-container {
-  max-width: 300px;
-  .profile-details {
-    .profile-picture {
-      width: 150px;
-    }
-  }
-  .user-details {
-    white-space: pre-line;
-  }
-  .edit-container {
-    width: 400px;
-    .bio-text {
-      display: block;
-      width: 100%;
-      height: calc(4.5em + 3.75rem + 2px);
-      padding: 0.375rem 0.75rem;
-      font-size: 1rem;
-      font-weight: 400;
-      line-height: 1.5;
-      color: #495057;
-      background-color: #fff;
-      background-clip: padding-box;
-      border: 1px solid #ced4da;
-      border-radius: 0.25rem;
-      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-      resize: none;
-    }
-  }
-}
-
-@import 'bootstrap';

@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react'
 import NavContext from './NavContext'
 import NavReducer from './NavReducer'
-import { SET_ACTIVE} from '../types'
+import { SET_ACTIVE } from '../types'
 
 const NavState = (props) => {
   const initialState = {
@@ -18,7 +18,6 @@ const NavState = (props) => {
     <NavContext.Provider
       value={{
         active: state.active,
-        isLoading: state.isLoading,
         setActiveLink,
       }}
     >

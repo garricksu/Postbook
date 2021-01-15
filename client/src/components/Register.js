@@ -1,10 +1,10 @@
 import React, { Fragment, useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import AuthContext from '../../context/auth/AuthContext'
-import NavContext from '../../context/nav/NavContext'
+import AuthContext from '../context/auth/AuthContext'
+import NavContext from '../context/nav/NavContext'
 
-import * as Constants from '../../utils/constants'
+import * as Constants from '../utils/constants'
 
 const Register = (props) => {
   const authContext = useContext(AuthContext)
