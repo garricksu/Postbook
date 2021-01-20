@@ -17,7 +17,7 @@ const UserState = (props) => {
       bio: '',
       occupation: '',
     },
-    isLoading: true
+    isLoading: true,
   }
 
   const [state, dispatch] = useReducer(UserReducer, initialState)
@@ -64,7 +64,7 @@ const UserState = (props) => {
   }
 
   const setLoading = (loading) => {
-    dispatch({type: SET_LOADING, payload: loading})
+    dispatch({ type: SET_LOADING, payload: loading })
   }
 
   return (
@@ -75,6 +75,7 @@ const UserState = (props) => {
         getSelectedUser,
         updateProfile,
         setLoading,
+        clearSelectedUser,
       }}
     >
       {props.children}

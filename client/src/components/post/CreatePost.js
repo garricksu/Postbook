@@ -36,7 +36,7 @@ const CreatePost = () => {
       <form
         action=''
         id='create-post-form'
-        class='form-group'
+        className='form-group'
         onSubmit={createNewPost}
       >
         <textarea
@@ -49,10 +49,7 @@ const CreatePost = () => {
           value={newPost}
           maxLength='2000'
         />
-        <button
-          className='btn btn-primary btn-block my-1'
-          id='submit-post-button submit'
-        >
+        <button className='btn btn-primary btn-block my-1' id='submit'>
           Post
         </button>
       </form>

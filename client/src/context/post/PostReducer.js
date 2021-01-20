@@ -1,6 +1,5 @@
 import {
   GET_USER_POSTS,
-  CREATE_POST,
   DELETE_POST,
   GET_DASHBOARD_POSTS,
   SET_LOADING,
@@ -9,10 +8,11 @@ import {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state, action) => {
   switch (action.type) {
-    case CREATE_POST:
+    case GET_USER_POSTS:
       return {
         ...state,
-        posts: [action.payload, ...state.posts],
+        posts: action.payload,
+        isLoading: false,
       }
     case SET_LOADING:
       return {
