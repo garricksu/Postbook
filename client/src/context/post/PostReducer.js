@@ -12,7 +12,7 @@ export default (state, action) => {
       return {
         ...state,
         posts: action.payload,
-        isLoading: false
+        isLoading: false,
       }
     case SET_LOADING:
       return {

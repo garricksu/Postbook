@@ -6,7 +6,7 @@ import PostContext from '../../context/post/PostContext'
 const CreatePost = () => {
   const authContext = useContext(AuthContext)
   const {
-    loggedInUser: { id, firstName},
+    loggedInUser: { id, firstName },
   } = authContext
 
   const postContext = useContext(PostContext)
@@ -49,10 +49,7 @@ const CreatePost = () => {
           value={newPost}
           maxLength='2000'
         />
-        <button
-          className='btn btn-primary btn-block my-1'
-          id='submit'
-        >
+        <button className='btn btn-primary btn-block my-1' id='submit'>
           Post
         </button>
       </form>

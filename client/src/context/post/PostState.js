@@ -41,7 +41,7 @@ const PostState = (props) => {
       )
       dispatch({
         type: GET_USER_POSTS,
-        payload: response.data.userPosts
+        payload: response.data.userPosts,
       })
     } catch (err) {
       console.log(err)
@@ -59,7 +59,7 @@ const PostState = (props) => {
         isLoading: state.isLoading,
         getUserPosts,
         submitPost,
-        setLoading
+        setLoading,
       }}
     >
       {props.children}
