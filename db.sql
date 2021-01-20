@@ -7,7 +7,7 @@ CREATE TABLE users (
   user_email VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATE NOT NULL
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -20,7 +20,7 @@ CREATE TABLE user_profile (
   birthday DATE NOT NULL,
   bio VARCHAR(500),
   occupation VARCHAR(255),
-  updated_at DATE NOT NULL,
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT fk_user_id
     FOREIGN KEY(user_id)
       REFERENCES users(id)

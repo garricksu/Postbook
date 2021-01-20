@@ -6,7 +6,7 @@ import PostContext from '../../context/post/PostContext'
 const CreatePost = () => {
   const authContext = useContext(AuthContext)
   const {
-    loggedInUser: { id, firstName, lastName },
+    loggedInUser: { id, firstName},
   } = authContext
 
   const postContext = useContext(PostContext)
@@ -24,8 +24,6 @@ const CreatePost = () => {
       const body = {
         id,
         post_body: newPost,
-        firstName,
-        lastName
       }
       submitPost(body)
       setNewPost('')

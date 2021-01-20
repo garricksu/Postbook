@@ -64,7 +64,7 @@ router.post('/profile/update', authorization, async (req, res) => {
   try {
     const { id, occupation, bio } = req.body
     const updatedProfile = await db.query(
-      'UPDATE user_profile SET occupation=$1, bio=$2 WHERE user_id=$3 RETURNING *',
+      'UPDATE user_profile SET occupation=$1, bio=$2, updated_at=CURRENT_TIMESTAMP WHERE user_id=$3 RETURNING *',
       [occupation, bio, id]
     )
     const { user_id } = updatedProfile.rows[0]

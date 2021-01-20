@@ -26,7 +26,7 @@ router.post('/register', validInput, async (req, res) => {
     const bcryptPassword = await bcrypt.hash(password, salt)
 
     const newUser = await db.query(
-      'INSERT INTO users(user_email, password, created_at, updated_at) VALUES($1, $2, current_timestamp, current_timestamp) RETURNING *',
+      'INSERT INTO users(user_email, password) VALUES($1, $2) RETURNING *',
       [email, bcryptPassword]
     )
     const userID = await db.query('SELECT id FROM users WHERE user_email=$1', [
