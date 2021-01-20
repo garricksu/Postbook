@@ -4,7 +4,6 @@ import PostContext from './PostContext'
 import PostReducer from './PostReducer'
 import {
   GET_USER_POSTS,
-  CREATE_POST,
   DELETE_POST,
   GET_DASHBOARD_POSTS,
   SET_LOADING,
@@ -29,16 +28,25 @@ const PostState = (props) => {
         body,
         config
       )
-      dispatch({
-        type: CREATE_POST,
-        payload: response.data.post,
-      })
+      getUserPosts(body.id)
     } catch (err) {
       console.log(err)
     }
   }
 
-  const getUserPosts = (selectedUserId) => {}
+  const getUserPosts = async (selectedUserId) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/api/posts/${selectedUserId}`
+      )
+      dispatch({
+        type: GET_USER_POSTS,
+        payload: response.data.userPosts
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   const setLoading = (loading) => {
     dispatch({ type: SET_LOADING, payload: loading })
@@ -51,6 +59,7 @@ const PostState = (props) => {
         isLoading: state.isLoading,
         getUserPosts,
         submitPost,
+        setLoading
       }}
     >
       {props.children}

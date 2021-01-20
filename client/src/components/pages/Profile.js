@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom'
 
 import UserContext from '../../context/user/UserContext'
 import AuthContext from '../../context/auth/AuthContext'
-
+import PostContext from '../../context/post/PostContext'
 
 import About from '../profile/About'
 import CreatePost from '../post/CreatePost'
@@ -20,9 +20,12 @@ const Profile = (props) => {
   const authContext = useContext(AuthContext)
   const { loggedInUser } = authContext
 
+  const postContext = useContext(PostContext)
+  const { getUserPosts } = postContext
 
   useEffect(() => {
     getSelectedUser(props.match.params.id)
+    getUserPosts(props.match.params.id)
   }, [props.match.params.id])
 
   const isValidUser = () => {
@@ -34,11 +37,11 @@ const Profile = (props) => {
       )
     } else {
       return (
-        <div class='row'>
+        <div className='row'>
           <About />
           <div className='profile-feed col-6 mx-auto'>
             {id === loggedInUser.id ? <CreatePost /> : null}
-            <Posts />
+            {!postContext.isLoading ? <Posts /> : null}
           </div>
 
           <div className='col'></div>

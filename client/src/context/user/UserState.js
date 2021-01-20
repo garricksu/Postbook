@@ -75,6 +75,7 @@ const UserState = (props) => {
         getSelectedUser,
         updateProfile,
         setLoading,
+        clearSelectedUser
       }}
     >
       {props.children}

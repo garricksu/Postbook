@@ -6,7 +6,7 @@ import PostContext from '../../context/post/PostContext'
 const CreatePost = () => {
   const authContext = useContext(AuthContext)
   const {
-    loggedInUser: { id, firstName },
+    loggedInUser: { id, firstName, lastName },
   } = authContext
 
   const postContext = useContext(PostContext)
@@ -24,6 +24,8 @@ const CreatePost = () => {
       const body = {
         id,
         post_body: newPost,
+        firstName,
+        lastName
       }
       submitPost(body)
       setNewPost('')
@@ -36,7 +38,7 @@ const CreatePost = () => {
       <form
         action=''
         id='create-post-form'
-        class='form-group'
+        className='form-group'
         onSubmit={createNewPost}
       >
         <textarea
@@ -51,7 +53,7 @@ const CreatePost = () => {
         />
         <button
           className='btn btn-primary btn-block my-1'
-          id='submit-post-button submit'
+          id='submit'
         >
           Post
         </button>

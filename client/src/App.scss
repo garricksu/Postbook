@@ -22,7 +22,7 @@ $primary: #7900e3;
 }
 
 // profile page
-// about secion
+// about section
 .user-container {
   max-width: 300px;
   .profile-details {
@@ -60,6 +60,16 @@ $primary: #7900e3;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   resize: none;
+}
+
+// posts
+.post-profile-picture {
+  width: 50px;
+}
+
+// font sizes
+.small-font {
+  font-size: .7rem
 }
 
 @import 'bootstrap';
