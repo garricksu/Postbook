@@ -7,6 +7,7 @@ import AuthContext from '../../context/auth/AuthContext'
 
 import About from '../profile/About'
 import CreatePost from '../post/CreatePost'
+import Posts from '../post/Posts'
 
 const Profile = (props) => {
   const userContext = useContext(UserContext)
@@ -37,6 +38,7 @@ const Profile = (props) => {
           <About />
           <div className='profile-feed col-6 mx-auto'>
             {id === loggedInUser.id ? <CreatePost /> : null}
+            <Posts />
           </div>
 
           <div className='col'></div>

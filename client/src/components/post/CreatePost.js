@@ -1,13 +1,12 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState } from 'react'
 
-import UserContext from '../../context/user/UserContext'
 import AuthContext from '../../context/auth/AuthContext'
 import PostContext from '../../context/post/PostContext'
 
 const CreatePost = () => {
   const authContext = useContext(AuthContext)
   const {
-    loggedInUser: { id, firstName},
+    loggedInUser: { id, firstName },
   } = authContext
 
   const postContext = useContext(PostContext)
@@ -21,11 +20,14 @@ const CreatePost = () => {
 
   const createNewPost = (e) => {
     e.preventDefault()
-    const body = {
-      id,
-      post_body: newPost,
+    if (newPost !== '') {
+      const body = {
+        id,
+        post_body: newPost,
+      }
+      submitPost(body)
+      setNewPost('')
     }
-    submitPost(body)
   }
 
   const postPrompt = `What's new with you, ${firstName}`
@@ -37,18 +39,18 @@ const CreatePost = () => {
         class='form-group'
         onSubmit={createNewPost}
       >
-        <input
+        <textarea
           onChange={(e) => updateNewPost(e)}
           type='text'
           name='occupation'
           id='create-post-field'
-          className='form-control'
+          className='create-post-form'
           placeholder={postPrompt}
           value={newPost}
           maxLength='2000'
         />
         <button
-          className='btn btn-primary btn-block'
+          className='btn btn-primary btn-block my-1'
           id='submit-post-button submit'
         >
           Post

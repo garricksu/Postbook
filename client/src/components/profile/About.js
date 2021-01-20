@@ -112,7 +112,7 @@ export const About = () => {
               type='text'
               name='bio'
               id='bio-edit-field'
-              className='bio-text mb-3'
+              className='bio-edit-form mb-3'
               placeholder='bio'
               value={updatedBio ? updatedBio : ''}
               maxLength='500'
