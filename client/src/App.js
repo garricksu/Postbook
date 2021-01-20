@@ -1,6 +1,7 @@
 import AuthState from './context/auth/AuthState'
 import NavState from './context/nav/NavState'
 import UserState from './context/user/UserState'
+import PostState from './context/post/PostState'
 
 import AuthCheck from './routing/AuthCheck'
 
@@ -15,7 +16,9 @@ function App() {
     <AuthState>
       <NavState>
         <UserState>
-          <AuthCheck />
+          <PostState>
+            <AuthCheck />
+          </PostState>
         </UserState>
       </NavState>
     </AuthState>

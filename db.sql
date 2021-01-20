@@ -25,3 +25,13 @@ CREATE TABLE user_profile (
     FOREIGN KEY(user_id)
       REFERENCES users(id)
 );
+
+CREATE TABLE posts (
+  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id uuid NOT NULL,
+  post_body VARCHAR(2000) NOT NULL,
+  created_at DATE NOT NULL,
+  CONSTRAINT fk_user_id
+    FOREIGN KEY(user_id)
+      REFERENCES users(id)
+);
