@@ -67,6 +67,8 @@ const Register = (props) => {
     setInput({ ...input, [e.target.name]: e.target.value })
   }
 
+  
+
   const onSubmitForm = async (e) => {
     e.preventDefault()
     if (checkInputDate()) {
@@ -108,7 +110,7 @@ const Register = (props) => {
         <div className='form-group row'>
           <div className='col'>
             <input
-              onChange={(e) => updateInput(e)}
+              onChange={updateInput}
               type='text'
               name='firstName'
               id='first-name'
@@ -119,7 +121,7 @@ const Register = (props) => {
           </div>
           <div className='col'>
             <input
-              onChange={(e) => updateInput(e)}
+              onChange={updateInput}
               type='text'
               name='lastName'
               id='last-name'
@@ -130,7 +132,7 @@ const Register = (props) => {
           </div>
         </div>
         <input
-          onChange={(e) => updateInput(e)}
+          onChange={updateInput}
           type='email'
           name='email'
           id='email'
@@ -139,7 +141,7 @@ const Register = (props) => {
           required
         />
         <input
-          onChange={(e) => updateInput(e)}
+          onChange={updateInput}
           type='password'
           name='password'
           id='password'
@@ -151,7 +153,7 @@ const Register = (props) => {
           <div className='col'>
             <label htmlFor='Month' className='col-form-label'>
               <select
-                onChange={(e) => updateInput(e)}
+                onChange={updateInput}
                 name='month'
                 id='month'
                 className='form-control'
@@ -176,7 +178,7 @@ const Register = (props) => {
           <div className='col d-flex justify-content-center'>
             <label htmlFor='Month' className='col-form-label'>
               <select
-                onChange={(e) => updateInput(e)}
+                onChange={updateInput}
                 name='day'
                 id='day'
                 className='form-control'
@@ -191,7 +193,7 @@ const Register = (props) => {
           <div className='col d-flex justify-content-end'>
             <label htmlFor='Month' className='col-form-label'>
               <select
-                onChange={(e) => updateInput(e)}
+                onChange={updateInput}
                 name='year'
                 id='year'
                 className='form-control'

@@ -50,7 +50,7 @@ const Login = (props) => {
         <div className='form-group row'>
           <div className='col'>
             <input
-              onChange={(e) => updateInput(e)}
+              onChange={updateInput}
               type='email'
               name='email'
               id='email'
@@ -63,7 +63,7 @@ const Login = (props) => {
         <div className='form-group row'>
           <div className='col'>
             <input
-              onChange={(e) => updateInput(e)}
+              onChange={updateInput}
               type='password'
               name='password'
               id='password'

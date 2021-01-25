@@ -40,7 +40,7 @@ const CreatePost = () => {
         onSubmit={createNewPost}
       >
         <textarea
-          onChange={(e) => updateNewPost(e)}
+          onChange={updateNewPost}
           type='text'
           name='occupation'
           id='create-post-field'
