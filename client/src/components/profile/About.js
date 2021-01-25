@@ -39,24 +39,35 @@ export const About = () => {
     id === loggedInUser.id ? setActiveLink(1) : setActiveLink(-1)
   }, [])
 
-  const toggleEditing = (e, bool) => {
+  const toggleEditing = (e) => {
     e.preventDefault()
-    if (occupation !== null) {
+    if (occupation !== null && bio !== null) {
       setUpdatedDetails((updatedDetails) => {
-        return { ...updatedDetails, updatedOccupation: occupation }
+        return { ...updatedDetails, updatedOccupation: occupation, updatedBio: bio }
       })
     }
-    if (bio !== null) {
+    else if (bio !== null) {
       setUpdatedDetails((updatedDetails) => {
         return { ...updatedDetails, updatedBio: bio }
       })
     }
-    setEditing(bool)
+    else if (occupation !== null) {
+      setUpdatedDetails((updatedDetails) => {
+        return { ...updatedDetails, updatedOccupation: occupation}
+      })
+    }
+    setEditing(!editing)
   }
 
-  const updateInput = (e, field) => {
+  const updateOccupation = (e) => {
     setUpdatedDetails((updatedDetails) => {
-      return { ...updatedDetails, [field]: e.target.value }
+      return { ...updatedDetails, updatedOccupation: e.target.value }
+    })
+  }
+
+  const updateBio = (e) => {
+    setUpdatedDetails((updatedDetails) => {
+      return { ...updatedDetails, updatedBio: e.target.value }
     })
   }
 
@@ -68,7 +79,7 @@ export const About = () => {
       occupation: updatedOccupation,
     }
     updateProfile(body)
-    toggleEditing(e, false)
+    toggleEditing(e)
   }
 
   const returnDetails = () => {
@@ -94,7 +105,7 @@ export const About = () => {
               <h6 className='text-muted'>{updatedOccupation.length}/100</h6>
             </div>
             <input
-              onChange={(e) => updateInput(e, 'updatedOccupation')}
+              onChange={updateOccupation}
               type='text'
               name='occupation'
               id='occupation-edit-field'
@@ -108,7 +119,7 @@ export const About = () => {
               <h6 className='text-muted'>{updatedBio.length}/500</h6>
             </div>
             <textarea
-              onChange={(e) => updateInput(e, 'updatedBio')}
+              onChange={updateBio}
               type='text'
               name='bio'
               id='bio-edit-field'
@@ -121,7 +132,7 @@ export const About = () => {
               <div className='col'>
                 <button
                   className='btn btn-primary btn-block'
-                  onClick={(e) => toggleEditing(e, false)}
+                  onClick={toggleEditing}
                   id='cancel-edit-button'
                 >
                   Cancel
@@ -159,7 +170,7 @@ export const About = () => {
             {loggedInUser.id === id ? (
               <button
                 className='btn btn-primary btn-block'
-                onClick={(e) => toggleEditing(e, true)}
+                onClick={toggleEditing}
                 id='edit-user-details-button'
               >
                 Edit
