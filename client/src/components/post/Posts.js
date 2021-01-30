@@ -4,37 +4,15 @@ import { Link } from 'react-router-dom'
 import PostContext from '../../context/post/PostContext'
 import UserContext from '../../context/user/UserContext'
 
-import * as Constants from '../../utils/constants'
+import Comments from './Comments'
+import CreateComment from './CreateComment'
+
+import { convertDate } from '../../utils/convertDate'
 import profilePicture from '../../assets/images/profile-picture.png'
 
 const Posts = () => {
   const postContext = useContext(PostContext)
   const { posts } = postContext
-
-  const userContext = useContext(UserContext)
-  const { clearSelectedUser } = userContext
-
-  const { months } = Constants
-
-  // Will make into separate function
-  const convertDate = (date) => {
-    const dateObj = new Date(date)
-    const month = months[dateObj.getMonth()]
-    const day = dateObj.getDate()
-    const year = dateObj.getFullYear()
-    const minutes = dateObj.getMinutes()
-    const hours = dateObj.getHours()
-    let time
-    if (hours === 0) {
-      time = `12:${minutes}AM`
-    } else if (hours > 12) {
-      time = `${hours - 12}:${minutes}PM`
-    } else {
-      time = `${hours}:${minutes}AM`
-    }
-    const convertedDateTime = `${month} ${day}, ${year} at ${time}`
-    return <p className='my-0 small-font'>{convertedDateTime}</p>
-  }
 
   return (
     <div>
@@ -59,7 +37,13 @@ const Posts = () => {
             </div>
           </div>
           <div className='card-body'>
-            <p className='card-text'>{post.post_body}</p>
+            <p className='card-text font-weight-bold'>{post.post_body}</p>
+          </div>
+          <div className='card'>
+            <div className='card-body'>
+              <Comments comments={post.comments} />
+              <CreateComment post_id={post.id} />
+            </div>
           </div>
         </div>
       ))}

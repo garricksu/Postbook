@@ -6,6 +6,8 @@ import {
   GET_USER_POSTS,
   DELETE_POST,
   GET_DASHBOARD_POSTS,
+  SUBMIT_POST,
+  SUBMIT_COMMENT,
   SET_LOADING,
 } from '../types'
 
@@ -28,7 +30,10 @@ const PostState = (props) => {
         body,
         config
       )
-      getUserPosts(body.id)
+      dispatch({
+        type: SUBMIT_POST,
+        payload: response.data.post,
+      })
     } catch (err) {
       console.log(err)
     }
@@ -48,8 +53,28 @@ const PostState = (props) => {
     }
   }
 
+  const submitComment = async (body) => {
+    const config = { headers: { 'Content-Type': 'application/json' } }
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/api/posts/new/comment/${body.post_id}`,
+        body,
+        config
+      )
+      dispatch({
+        type: SUBMIT_COMMENT,
+        payload: response.data.newComment,
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   const setLoading = (loading) => {
-    dispatch({ type: SET_LOADING, payload: loading })
+    dispatch({
+      type: SET_LOADING,
+      payload: loading,
+    })
   }
 
   return (
@@ -59,6 +84,7 @@ const PostState = (props) => {
         isLoading: state.isLoading,
         getUserPosts,
         submitPost,
+        submitComment,
         setLoading,
       }}
     >

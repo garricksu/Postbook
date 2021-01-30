@@ -35,3 +35,17 @@ CREATE TABLE posts (
     FOREIGN KEY(user_id)
       REFERENCES users(id)
 );
+
+CREATE TABLE posts_comments (
+  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  post_id uuid NOT NULL,
+  user_id uuid NOT NULL,
+  comment_body VARCHAR(2000) NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_user_id
+    FOREIGN KEY(user_id)
+      REFERENCES users(id),
+  CONSTRAINT fk_post_id
+    FOREIGN KEY(post_id)
+      REFERENCES posts(id)
+);
