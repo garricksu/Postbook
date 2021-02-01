@@ -33,7 +33,7 @@ export const About = () => {
   })
   const { updatedBio, updatedOccupation } = updatedDetails
 
-  const [editing, setEditing] = useState(false)
+  const [isEditing, setEditing] = useState(false)
 
   useEffect(() => {
     id === loggedInUser.id ? setActiveLink(1) : setActiveLink(-1)
@@ -43,20 +43,22 @@ export const About = () => {
     e.preventDefault()
     if (occupation !== null && bio !== null) {
       setUpdatedDetails((updatedDetails) => {
-        return { ...updatedDetails, updatedOccupation: occupation, updatedBio: bio }
+        return {
+          ...updatedDetails,
+          updatedOccupation: occupation,
+          updatedBio: bio,
+        }
       })
-    }
-    else if (bio !== null) {
+    } else if (bio !== null) {
       setUpdatedDetails((updatedDetails) => {
         return { ...updatedDetails, updatedBio: bio }
       })
-    }
-    else if (occupation !== null) {
+    } else if (occupation !== null) {
       setUpdatedDetails((updatedDetails) => {
-        return { ...updatedDetails, updatedOccupation: occupation}
+        return { ...updatedDetails, updatedOccupation: occupation }
       })
     }
-    setEditing(!editing)
+    setEditing(!isEditing)
   }
 
   const updateOccupation = (e) => {
@@ -83,7 +85,7 @@ export const About = () => {
   }
 
   const returnDetails = () => {
-    if (editing) {
+    if (isEditing) {
       return (
         <div
           className='user-details border border-light rounded bg-light py-4 px-3 edit-container'

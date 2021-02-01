@@ -34,7 +34,6 @@ const CreatePost = () => {
   return (
     <div id='create-post'>
       <form
-        action=''
         id='create-post-form'
         className='form-group'
         onSubmit={createNewPost}

@@ -67,6 +67,19 @@ $primary: #7900e3;
   width: 50px;
 }
 
+.comment-profile-picture {
+  width: 30px;
+}
+
+// create comment
+#create-comment-input {
+  border: none;
+}
+
+.comment-body {
+  margin-left: 50px;
+}
+
 // font sizes
 .small-font {
   font-size: 0.7rem;
