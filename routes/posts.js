@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const db = require('../db')
 const authorization = require('../middleware/authorization')
-const Constants = require('../utils/constant')
+
 
 // create post
 router.post('/new/:id', authorization, async (req, res) => {
@@ -49,6 +49,19 @@ router.get('/:id', authorization, async (req, res) => {
     return res.json({
       userPosts: postsWithComments,
     })
+  } catch (err) {
+    console.error(err.message)
+    return res.status(500).json('Server Error')
+  }
+})
+
+// delete selected post
+router.delete('/delete/:post_id', authorization, async (req, res) => {
+  try {
+    const deletePost = await db.query('DELETE FROM posts WHERE id=$1', [req.params.post_id])
+
+    return res.status(200).json(`Post ${req.params.id} Deleted`)
+
   } catch (err) {
     console.error(err.message)
     return res.status(500).json('Server Error')

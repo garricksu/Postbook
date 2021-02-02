@@ -4,6 +4,9 @@ import {
   GET_DASHBOARD_POSTS,
   SUBMIT_POST,
   SUBMIT_COMMENT,
+  DELETE_COMMENT,
+  SET_DELETE_MODAL,
+  CLEAR_DELETE_MODAL,
   SET_LOADING,
 } from '../types'
 
@@ -22,6 +25,11 @@ export default (state, action) => {
         posts: [{ ...action.payload, comments: [] }, ...state.posts],
         isLoading: false,
       }
+    case DELETE_POST:
+      return {
+        ...state,
+        posts: state.posts.filter((post) => post.id !== action.payload),
+      }
     case SUBMIT_COMMENT:
       return {
         ...state,
@@ -30,6 +38,24 @@ export default (state, action) => {
             ? { ...post, comments: [...post.comments, action.payload] }
             : post
         ),
+      }
+    case SET_DELETE_MODAL:
+      return {
+        ...state,
+        deleteAction: {
+          showModal: true,
+          id: action.payload.id,
+          contentType: action.payload.contentType,
+        },
+      }
+    case CLEAR_DELETE_MODAL:
+      return {
+        ...state,
+        deleteAction: {
+          showModal: false,
+          id: '',
+          contentType: '',
+        },
       }
     case SET_LOADING:
       return {

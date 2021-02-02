@@ -27,7 +27,9 @@ const Comments = (props) => {
                   </Link>
                 </div>
                 <div className='align-self-end'>
-                  <p>{convertDate(comment.created_at)}</p>
+                  <p className='my-0 small-font'>
+                    {convertDate(comment.created_at)}
+                  </p>
                 </div>
               </div>
               <div>

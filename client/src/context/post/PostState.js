@@ -8,6 +8,8 @@ import {
   GET_DASHBOARD_POSTS,
   SUBMIT_POST,
   SUBMIT_COMMENT,
+  SET_DELETE_MODAL,
+  CLEAR_DELETE_MODAL,
   SET_LOADING,
 } from '../types'
 
@@ -16,6 +18,11 @@ import axios from 'axios'
 const PostState = (props) => {
   const initialState = {
     posts: [],
+    deleteAction: {
+      showModal: false,
+      id: '',
+      contentType: '',
+    },
     isLoading: true,
   }
 
@@ -35,7 +42,7 @@ const PostState = (props) => {
         payload: response.data.post,
       })
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 
@@ -49,7 +56,24 @@ const PostState = (props) => {
         payload: response.data.userPosts,
       })
     } catch (err) {
-      console.log(err)
+      console.error(err)
+    }
+  }
+
+  const deletePost = async (post_id) => {
+    const config = { headers: { 'Content-Type': 'application/json' } }
+    try {
+      const response = await axios.delete(
+        `http://localhost:5000/api/posts/delete/${post_id}`,
+        config
+      )
+
+      dispatch({
+        type: DELETE_POST,
+        payload: post_id,
+      })
+    } catch (err) {
+      console.error(err)
     }
   }
 
@@ -66,8 +90,41 @@ const PostState = (props) => {
         payload: response.data.newComment,
       })
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
+  }
+
+  const deleteComment = async (comment_id) => {
+    // const config = { headers: { 'Content-Type': 'application/json' } }
+    // try {
+    //   const response = await axios.delete(
+    //     `http://localhost:5000/api/posts/delete/${post_id}`,
+    //     config
+    //   )
+
+    //   dispatch({
+    //     type: DELETE_POST,
+    //     payload: post_id,
+    //   })
+    // } catch (err) {
+    //   console.error(err)
+    // }
+  }
+
+  const setDeleteModal = (id, contentType) => {
+    dispatch({
+      type: SET_DELETE_MODAL,
+      payload: {
+        id,
+        contentType,
+      },
+    })
+  }
+
+  const clearDeleteModal = () => {
+    dispatch({
+      type: CLEAR_DELETE_MODAL,
+    })
   }
 
   const setLoading = (loading) => {
@@ -82,9 +139,14 @@ const PostState = (props) => {
       value={{
         posts: state.posts,
         isLoading: state.isLoading,
+        deleteAction: state.deleteAction,
         getUserPosts,
         submitPost,
+        deletePost,
         submitComment,
+        deleteComment,
+        setDeleteModal,
+        clearDeleteModal,
         setLoading,
       }}
     >

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import PostContext from '../../context/post/PostContext'
 import UserContext from '../../context/user/UserContext'
 
+import ContentOptions from './ContentOptions'
 import Comments from './Comments'
 import CreateComment from './CreateComment'
 
@@ -32,12 +33,13 @@ const Posts = () => {
                 </h6>
               </Link>
             </div>
-            <div className='d-flex align-items-end'>
-              {convertDate(post.created_at)}
+            <div className='d-flex flex-column justify-content-between'>
+              <ContentOptions id={post.id} contentType='post' />
+              <p className='my-0 small-font'>{convertDate(post.created_at)}</p>
             </div>
           </div>
-          <div className='card-body'>
-            <p className='card-text font-weight-bold'>{post.post_body}</p>
+          <div className='card-header'>
+            <h5 className='card-text font-weight-bold'>{post.post_body}</h5>
           </div>
           <div className='card'>
             <div className='card-body'>

@@ -23,5 +23,5 @@ export const convertDate = (dateString) => {
     time = `${hours}:${minutes}AM`
   }
   const convertedDateTime = `${month} ${day}, ${year} at ${time}`
-  return <p className='my-0 small-font'>{convertedDateTime}</p>
+  return convertedDateTime
 }

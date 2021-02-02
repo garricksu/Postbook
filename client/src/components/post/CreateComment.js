@@ -3,6 +3,8 @@ import React, { useContext, useState } from 'react'
 import AuthContext from '../../context/auth/AuthContext'
 import PostContext from '../../context/post/PostContext'
 
+import send_button from '../../assets/images/send_button.png'
+
 const CreateComment = (props) => {
   const { post_id } = props
 
@@ -48,8 +50,8 @@ const CreateComment = (props) => {
         id='create-comment-input'
         maxLength='2000'
       />
-      <button className='btn btn-primary' id='submit'>
-        Comment
+      <button className='btn' id='submit'>
+        <img src={send_button} alt='send' className='send-button' />
       </button>
     </form>
   )
