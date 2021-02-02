@@ -67,16 +67,20 @@ $primary: #7900e3;
 
 // posts
 .post-profile-picture {
-  width: 50px;
+  width: 30px;
 }
 
-.comment-profile-picture {
-  width: 30px;
+.post-body, .comment-body {
+  margin-left: 50px;
 }
 
 // create comment
 #create-comment-input {
   border: none;
+}
+
+.content-menu-button {
+  padding: 0 !important;
 }
 
 .content-menu-icon {
@@ -95,10 +99,6 @@ $primary: #7900e3;
   width: 20px;
 }
 
-.comment-body {
-  margin-left: 50px;
-}
-
 .delete-modal {
   z-index: 1000;
   margin-top: 300px;
@@ -113,7 +113,7 @@ $primary: #7900e3;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,0.2);
+  background-color: rgba(0, 0, 0, 0.2);
   z-index: 1000;
 }
 

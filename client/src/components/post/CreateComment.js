@@ -43,7 +43,7 @@ const CreateComment = (props) => {
     >
       <input
         onChange={updateNewComment}
-        className='w-100'
+        className='w-100 py-1 px-2'
         type='text'
         placeholder='Comment...'
         value={newComment}

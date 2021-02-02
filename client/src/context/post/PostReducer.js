@@ -39,6 +39,20 @@ export default (state, action) => {
             : post
         ),
       }
+    case DELETE_COMMENT:
+      return {
+        ...state,
+        posts: state.posts.map((post) =>
+          post.id === action.payload.post_id
+            ? {
+                ...post,
+                comments: post.comments.filter(
+                  (comment) => comment.id !== action.payload.comment_id
+                ),
+              }
+            : post
+        ),
+      }
     case SET_DELETE_MODAL:
       return {
         ...state,

@@ -19,7 +19,7 @@ const Navbar = () => {
   const { active, setActiveLink } = navContext
 
   const userContext = useContext(UserContext)
-  const {selectedUser } = userContext
+  const { selectedUser } = userContext
 
   useEffect(() => {
     if (isAuthenticated) {

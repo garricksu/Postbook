@@ -8,6 +8,7 @@ import {
   GET_DASHBOARD_POSTS,
   SUBMIT_POST,
   SUBMIT_COMMENT,
+  DELETE_COMMENT,
   SET_DELETE_MODAL,
   CLEAR_DELETE_MODAL,
   SET_LOADING,
@@ -95,20 +96,23 @@ const PostState = (props) => {
   }
 
   const deleteComment = async (comment_id) => {
-    // const config = { headers: { 'Content-Type': 'application/json' } }
-    // try {
-    //   const response = await axios.delete(
-    //     `http://localhost:5000/api/posts/delete/${post_id}`,
-    //     config
-    //   )
+    const config = { headers: { 'Content-Type': 'application/json' } }
+    try {
+      const response = await axios.delete(
+        `http://localhost:5000/api/posts/delete/comment/${comment_id}`,
+        config
+      )
 
-    //   dispatch({
-    //     type: DELETE_POST,
-    //     payload: post_id,
-    //   })
-    // } catch (err) {
-    //   console.error(err)
-    // }
+      dispatch({
+        type: DELETE_COMMENT,
+        payload: {
+          post_id: response.data.post_id,
+          comment_id: response.data.comment_id,
+        },
+      })
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   const setDeleteModal = (id, contentType) => {

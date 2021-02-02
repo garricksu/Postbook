@@ -45,7 +45,11 @@ const ContentOptions = (props) => {
 
   return (
     <div className='align-self-end'>
-      <button className='btn' onClick={toggleShowMenu} id='content-menu-icon'>
+      <button
+        className='btn content-menu-button'
+        onClick={toggleShowMenu}
+        id='content-menu-icon'
+      >
         <img src={menu_icon} alt='content-menu' className='content-menu-icon' />
       </button>
       {returnOptions()}

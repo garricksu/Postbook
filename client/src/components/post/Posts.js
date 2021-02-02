@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 import PostContext from '../../context/post/PostContext'
-import UserContext from '../../context/user/UserContext'
+import AuthContext from '../../context/auth/AuthContext'
 
 import ContentOptions from './ContentOptions'
 import Comments from './Comments'
@@ -15,31 +15,40 @@ const Posts = () => {
   const postContext = useContext(PostContext)
   const { posts } = postContext
 
+  const authContext = useContext(AuthContext)
+  const { loggedInUser } = authContext
+
   return (
     <div>
       {posts.map((post) => (
         <div className='card text-dark bg-light mb-3' key={post.id}>
-          <div className='card-header d-flex justify-content-between'>
-            <div className='d-flex align-items-center '>
-              <img
-                src={profilePicture}
-                alt='profile'
-                className='post-profile-picture border border-secondary rounded mr-3'
-                id='profile-picture'
-              />
-              <Link to={`/user/${post.user_id}`}>
-                <h6 className='text-dark'>
-                  {post.first_name} {post.last_name}
-                </h6>
-              </Link>
-            </div>
-            <div className='d-flex flex-column justify-content-between'>
-              <ContentOptions id={post.id} contentType='post' />
-              <p className='my-0 small-font'>{convertDate(post.created_at)}</p>
-            </div>
-          </div>
           <div className='card-header'>
-            <h5 className='card-text font-weight-bold'>{post.post_body}</h5>
+            <div className='d-flex justify-content-between'>
+              <div className='d-flex align-items-center '>
+                <img
+                  src={profilePicture}
+                  alt='profile'
+                  className='post-profile-picture border border-secondary rounded mr-3'
+                  id='profile-picture'
+                />
+                <Link to={`/user/${post.user_id}`}>
+                  <h6 className='text-dark'>
+                    {post.first_name} {post.last_name}
+                  </h6>
+                </Link>
+              </div>
+              <div className='d-flex flex-column justify-content-between'>
+                <p className='my-0 small-font'>
+                  {convertDate(post.created_at)}
+                </p>
+                {loggedInUser.id === post.user_id ? (
+                  <ContentOptions id={post.id} contentType='post' />
+                ) : null}
+              </div>
+            </div>
+            <h5 className='card-text font-weight-bold post-body'>
+              {post.post_body}
+            </h5>
           </div>
           <div className='card'>
             <div className='card-body'>
