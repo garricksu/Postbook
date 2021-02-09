@@ -22,6 +22,5 @@ export const convertDate = (dateString) => {
   } else {
     time = `${hours}:${minutes}AM`
   }
-  const convertedDateTime = `${month} ${day}, ${year} at ${time}`
-  return convertedDateTime
+  return `${month} ${day}, ${year} at ${time}`
 }

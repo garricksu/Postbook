@@ -9,7 +9,7 @@ import Comments from './Comments'
 import CreateComment from './CreateComment'
 
 import { convertDate } from '../../utils/convertDate'
-import profilePicture from '../../assets/images/profile-picture.png'
+import profilePictureSrc from '../../assets/images/profile-picture.png'
 
 const Posts = () => {
   const postContext = useContext(PostContext)
@@ -26,7 +26,7 @@ const Posts = () => {
             <div className='d-flex justify-content-between'>
               <div className='d-flex align-items-center '>
                 <img
-                  src={profilePicture}
+                  src={profilePictureSrc}
                   alt='profile'
                   className='post-profile-picture border border-secondary rounded mr-3'
                   id='profile-picture'

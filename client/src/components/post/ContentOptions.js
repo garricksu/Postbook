@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 
 import PostContext from '../../context/post/PostContext'
 
-import menu_icon from '../../assets/images/menu_icon.png'
+import menuIconSrc from '../../assets/images/menu_icon.png'
 
 const ContentOptions = (props) => {
   const postContext = useContext(PostContext)
@@ -10,13 +10,13 @@ const ContentOptions = (props) => {
 
   const { id, contentType } = props
 
+  const [showMenu, setShowMenu] = useState(false)
+
   const toggleModal = (e) => {
     e.preventDefault()
     setDeleteModal(id, contentType)
     setShowMenu(!showMenu)
   }
-
-  const [showMenu, setShowMenu] = useState(false)
 
   const toggleShowMenu = (e) => {
     e.preventDefault()
@@ -50,7 +50,7 @@ const ContentOptions = (props) => {
         onClick={toggleShowMenu}
         id='content-menu-icon'
       >
-        <img src={menu_icon} alt='content-menu' className='content-menu-icon' />
+        <img src={menuIconSrc} alt='content-menu' className='content-menu-icon' />
       </button>
       {returnOptions()}
     </div>

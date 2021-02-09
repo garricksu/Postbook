@@ -21,29 +21,33 @@ const DeleteModal = () => {
   }
 
   const returnModal = () => {
-    return showModal ? (
-      <div className='modal-overlay'>
-        <div className='delete-modal bg-light mx-auto text-center py-4 border border-secondary rounded'>
-          <p>Are you sure you want to delete this {contentType}?</p>
-          <button
-            type='button'
-            className='btn btn-secondary mr-2'
-            data-dismiss='modal'
-            onClick={clearDeleteModal}
-          >
-            Cancel
-          </button>
-          <button
-            type='button'
-            className='btn btn-primary ml-2'
-            data-dismiss='modal'
-            onClick={deleteContent}
-          >
-            Confirm
-          </button>
+    if (showModal) {
+      return (
+        <div className='modal-overlay'>
+          <div className='delete-modal bg-light mx-auto text-center py-4 border border-secondary rounded'>
+            <p>Are you sure you want to delete this {contentType}?</p>
+            <button
+              type='button'
+              className='btn btn-secondary mr-2'
+              data-dismiss='modal'
+              onClick={clearDeleteModal}
+            >
+              Cancel
+            </button>
+            <button
+              type='button'
+              className='btn btn-primary ml-2'
+              data-dismiss='modal'
+              onClick={deleteContent}
+            >
+              Confirm
+            </button>
+          </div>
         </div>
-      </div>
-    ) : null
+      )
+    } else {
+      return null
+    }
   }
 
   return <div>{returnModal()}</div>

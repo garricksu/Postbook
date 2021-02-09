@@ -6,7 +6,7 @@ import AuthContext from '../../context/auth/AuthContext'
 import ContentOptions from './ContentOptions'
 
 import { convertDate } from '../../utils/convertDate'
-import profilePicture from '../../assets/images/profile-picture.png'
+import profilePictureSrc from '../../assets/images/profile-picture.png'
 
 const Comments = (props) => {
   const { comments } = props
@@ -23,7 +23,7 @@ const Comments = (props) => {
               <div className='d-flex justify-content-between'>
                 <div className='d-flex align-items-center'>
                   <img
-                    src={profilePicture}
+                    src={profilePictureSrc}
                     className='post-profile-picture border border-secondary rounded mr-3'
                     alt='profile'
                   />
@@ -37,9 +37,7 @@ const Comments = (props) => {
                   <p className='my-0 small-font'>
                     {convertDate(comment.created_at)}
                   </p>
-                  {loggedInUser.id === comment.user_id ? (
-                    <ContentOptions id={comment.id} contentType='comment' />
-                  ) : null}
+                  {loggedInUser.id === comment.user_id ? (<ContentOptions id={comment.id} contentType='comment' />) : null}
                 </div>
               </div>
               <div>

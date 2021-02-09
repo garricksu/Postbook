@@ -10,6 +10,9 @@ import {
   SET_LOADING,
 } from '../types'
 
+import { addPost, removePost, addComment, removeComment } from './postFunctions'
+
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state, action) => {
   switch (action.type) {
@@ -22,36 +25,23 @@ export default (state, action) => {
     case SUBMIT_POST:
       return {
         ...state,
-        posts: [{ ...action.payload, comments: [] }, ...state.posts],
+        posts: addPost(state.posts, action.payload),
         isLoading: false,
       }
     case DELETE_POST:
       return {
         ...state,
-        posts: state.posts.filter((post) => post.id !== action.payload),
+        posts: removePost(state.posts, action.payload),
       }
     case SUBMIT_COMMENT:
       return {
         ...state,
-        posts: state.posts.map((post) =>
-          post.id === action.payload.post_id
-            ? { ...post, comments: [...post.comments, action.payload] }
-            : post
-        ),
+        posts: addComment(state.posts, action.payload),
       }
     case DELETE_COMMENT:
       return {
         ...state,
-        posts: state.posts.map((post) =>
-          post.id === action.payload.post_id
-            ? {
-                ...post,
-                comments: post.comments.filter(
-                  (comment) => comment.id !== action.payload.comment_id
-                ),
-              }
-            : post
-        ),
+        posts: removeComment(state.posts, action.payload),
       }
     case SET_DELETE_MODAL:
       return {
