@@ -42,7 +42,7 @@ router.post('/register', validInput, async (req, res) => {
     return res.json({ token })
   } catch (err) {
     console.error(err.message)
-    return res.status(500).json('Server Error')
+    return res.status(500).json('Server Error. User could not be registered.')
   }
 })
 
@@ -69,7 +69,7 @@ router.post('/login', validInput, async (req, res) => {
     return res.json({ token })
   } catch (err) {
     console.error(err.message)
-    return res.status(500).json('Server Error')
+    return res.status(500).json('Server Error. User could not be validated.')
   }
 })
 

@@ -31,12 +31,10 @@ const PostState = (props) => {
 
   // Creat new post
   const submitPost = async (body) => {
-    const config = { headers: { 'Content-Type': 'application/json' } }
     try {
       const response = await axios.post(
         `http://localhost:5000/api/posts/new/${body.id}`,
-        body,
-        config
+        body
       )
       dispatch({
         type: SUBMIT_POST,
@@ -62,11 +60,9 @@ const PostState = (props) => {
   }
 
   const deletePost = async (post_id) => {
-    const config = { headers: { 'Content-Type': 'application/json' } }
     try {
       const response = await axios.delete(
-        `http://localhost:5000/api/posts/delete/${post_id}`,
-        config
+        `http://localhost:5000/api/posts/delete/${post_id}`
       )
 
       dispatch({
@@ -79,12 +75,10 @@ const PostState = (props) => {
   }
 
   const submitComment = async (body) => {
-    const config = { headers: { 'Content-Type': 'application/json' } }
     try {
       const response = await axios.post(
         `http://localhost:5000/api/posts/new/comment/${body.post_id}`,
-        body,
-        config
+        body
       )
       dispatch({
         type: SUBMIT_COMMENT,
@@ -96,11 +90,9 @@ const PostState = (props) => {
   }
 
   const deleteComment = async (comment_id) => {
-    const config = { headers: { 'Content-Type': 'application/json' } }
     try {
       const response = await axios.delete(
-        `http://localhost:5000/api/posts/delete/comment/${comment_id}`,
-        config
+        `http://localhost:5000/api/posts/delete/comment/${comment_id}`
       )
 
       dispatch({

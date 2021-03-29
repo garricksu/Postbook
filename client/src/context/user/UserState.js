@@ -46,12 +46,10 @@ const UserState = (props) => {
 
   // Update user profile
   const updateProfile = async (body) => {
-    const config = { headers: { 'Content-Type': 'application/json' } }
     try {
       const response = await axios.post(
         'http://localhost:5000/api/user/profile/update',
-        body,
-        config
+        body
       )
       getSelectedUser(response.data.id)
     } catch (err) {
