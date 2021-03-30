@@ -10,7 +10,7 @@ import AuthCheck from './routing/AuthCheck'
 import setAuthToken from './utils/setAuthToken'
 import './App.scss'
 
-axios.defaults.header.common = {'Content-Type': 'application/json' }
+axios.defaults.headers.common['Content-Type'] = 'application/json' 
 
 function App() {
   if (localStorage.token) {

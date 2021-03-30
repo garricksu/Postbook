@@ -70,29 +70,30 @@ $primary: #7900e3;
   width: 30px;
 }
 
-.post-body, .comment-body {
+.post-body,
+.comment-body {
   margin-left: 50px;
 }
 
 // create comment
 #create-comment-input {
   border: none;
+  &:focus {
+    outline: none;
+  }
 }
 
 .content-menu-button {
   padding: 0 !important;
+  height: 20px;
 }
 
 .content-menu-icon {
   width: 20px;
 }
 
-.content-options-list {
-  z-index: 500;
-  position: absolute;
-  li {
-    list-style: none;
-  }
+.content-option-placeholder {
+  height: 20px;
 }
 
 .send-button {

@@ -45,6 +45,7 @@ const CreateComment = (props) => {
         onChange={updateNewComment}
         className='w-100 py-1 px-2'
         type='text'
+        autoComplete='off'
         placeholder='Comment...'
         value={newComment}
         id='create-comment-input'

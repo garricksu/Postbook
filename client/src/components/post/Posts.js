@@ -43,7 +43,9 @@ const Posts = () => {
                 </p>
                 {loggedInUser.id === post.user_id ? (
                   <ContentOptions id={post.id} contentType='post' />
-                ) : null}
+                ) : (
+                  <div className='content-option-placeholder'>&nbsp;</div>
+                )}
               </div>
             </div>
             <h5 className='card-text font-weight-bold post-body'>

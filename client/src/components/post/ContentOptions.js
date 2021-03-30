@@ -10,49 +10,20 @@ const ContentOptions = (props) => {
 
   const { id, contentType } = props
 
-  const [showMenu, setShowMenu] = useState(false)
-
   const toggleModal = (e) => {
     e.preventDefault()
     setDeleteModal(id, contentType)
-    setShowMenu(!showMenu)
-  }
-
-  const toggleShowMenu = (e) => {
-    e.preventDefault()
-    setShowMenu(!showMenu)
-  }
-
-  const returnOptions = () => {
-    if (showMenu) {
-      return (
-        <ul className='content-options-list px-0' id='content-options'>
-          <li className='bg-white border rounded bg-light text-center'>
-            <button
-              className='btn font-weight-bold'
-              id='delete-button'
-              onClick={toggleModal}
-            >
-              Delete
-            </button>
-          </li>
-        </ul>
-      )
-    } else {
-      return null
-    }
   }
 
   return (
-    <div className='align-self-end'>
+    <div className='align-self-end d-flex align-items-center'>
       <button
         className='btn content-menu-button'
-        onClick={toggleShowMenu}
+        onClick={toggleModal}
         id='content-menu-icon'
       >
-        <img src={menuIconSrc} alt='content-menu' className='content-menu-icon' />
+        <p className='small-font font-weight-bold'>Delete</p>
       </button>
-      {returnOptions()}
     </div>
   )
 }

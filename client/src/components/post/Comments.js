@@ -33,11 +33,15 @@ const Comments = (props) => {
                     </h6>
                   </Link>
                 </div>
-                <div className='d-flex flex-column '>
+                <div className='d-flex flex-column justify-content-center'>
                   <p className='my-0 small-font'>
                     {convertDate(comment.created_at)}
                   </p>
-                  {loggedInUser.id === comment.user_id ? (<ContentOptions id={comment.id} contentType='comment' />) : null}
+                  {loggedInUser.id === comment.user_id ? (
+                    <ContentOptions id={comment.id} contentType='comment' />
+                  ) : (
+                    <div className='content-option-placeholder'>&nbsp;</div>
+                  )}
                 </div>
               </div>
               <div>
