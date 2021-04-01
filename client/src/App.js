@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 import AuthState from './context/auth/AuthState'
 import NavState from './context/nav/NavState'
 import UserState from './context/user/UserState'
@@ -7,6 +9,8 @@ import AuthCheck from './routing/AuthCheck'
 
 import setAuthToken from './utils/setAuthToken'
 import './App.scss'
+
+axios.defaults.headers.common['Content-Type'] = 'application/json' 
 
 function App() {
   if (localStorage.token) {

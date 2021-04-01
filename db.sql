@@ -24,6 +24,7 @@ CREATE TABLE user_profile (
   CONSTRAINT fk_user_id
     FOREIGN KEY(user_id)
       REFERENCES users(id)
+      ON DELETE CASCADE
 );
 
 CREATE TABLE posts (
@@ -34,6 +35,7 @@ CREATE TABLE posts (
   CONSTRAINT fk_user_id
     FOREIGN KEY(user_id)
       REFERENCES users(id)
+      ON DELETE CASCADE
 );
 
 CREATE TABLE posts_comments (
@@ -44,8 +46,10 @@ CREATE TABLE posts_comments (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT fk_user_id
     FOREIGN KEY(user_id)
-      REFERENCES users(id),
+      REFERENCES users(id)
+      ON DELETE CASCADE,
   CONSTRAINT fk_post_id
     FOREIGN KEY(post_id)
       REFERENCES posts(id)
+      ON DELETE CASCADE
 );

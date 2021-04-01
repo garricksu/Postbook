@@ -31,12 +31,10 @@ const AuthState = (props) => {
 
   // Register User
   const registerUser = async (body) => {
-    const config = { headers: { 'Content-Type': 'application/json' } }
     try {
       const response = await axios.post(
         'http://localhost:5000/api/auth/register',
-        body,
-        config
+        body
       )
       const { token } = response.data
 
@@ -55,12 +53,10 @@ const AuthState = (props) => {
 
   // Login User
   const loginUser = async (body) => {
-    const config = { headers: { 'Content-Type': 'application/json' } }
     try {
       const response = await axios.post(
         'http://localhost:5000/api/auth/login',
-        body,
-        config
+        body
       )
       const { token } = response.data
 
@@ -79,6 +75,7 @@ const AuthState = (props) => {
 
   // Get Logged In User
   const getLoggedInUser = async () => {
+    console.log(axios.defaults.headers)
     if (localStorage.token) {
       setAuthToken(localStorage.token)
     }

@@ -20,7 +20,9 @@ router.get('/loggedInUser', authorization, async (req, res) => {
     })
   } catch (err) {
     console.error(err.message)
-    return res.status(500).json('Server Error')
+    return res
+      .status(500)
+      .json('Server Error. Could not retreive the current user.')
   }
 })
 
@@ -73,7 +75,11 @@ router.post('/profile/update', authorization, async (req, res) => {
     })
   } catch (err) {
     console.error(err.message)
-    return res.status(500).json('Server Error')
+    return res
+      .status(500)
+      .json(
+        `Server Error. Profile could not be updated for user ${req.body.id}.`
+      )
   }
 })
 

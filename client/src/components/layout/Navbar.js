@@ -19,7 +19,7 @@ const Navbar = () => {
   const { active, setActiveLink } = navContext
 
   const userContext = useContext(UserContext)
-  const {selectedUser } = userContext
+  const { selectedUser } = userContext
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -51,7 +51,7 @@ const Navbar = () => {
   }
 
   return (
-    <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
+    <nav className='navbar navbar-expand-lg navbar-dark bg-dark fixed-top'>
       <Link
         className='navbar-brand'
         id='brand-link'

@@ -1,11 +1,18 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
+import AuthContext from '../../context/auth/AuthContext'
+
+import ContentOptions from './ContentOptions'
+
 import { convertDate } from '../../utils/convertDate'
-import profilePicture from '../../assets/images/profile-picture.png'
+import profilePictureSrc from '../../assets/images/profile-picture.png'
 
 const Comments = (props) => {
   const { comments } = props
+
+  const authContext = useContext(AuthContext)
+  const { loggedInUser } = authContext
 
   const returnComments = () => {
     if (comments.length !== 0) {
@@ -16,8 +23,8 @@ const Comments = (props) => {
               <div className='d-flex justify-content-between'>
                 <div className='d-flex align-items-center'>
                   <img
-                    src={profilePicture}
-                    className='comment-profile-picture border border-secondary rounded mr-3'
+                    src={profilePictureSrc}
+                    className='post-profile-picture border border-secondary rounded mr-3'
                     alt='profile'
                   />
                   <Link to={`/user/${comment.user_id}`}>
@@ -26,8 +33,15 @@ const Comments = (props) => {
                     </h6>
                   </Link>
                 </div>
-                <div className='align-self-end'>
-                  <p>{convertDate(comment.created_at)}</p>
+                <div className='d-flex flex-column justify-content-center'>
+                  <p className='my-0 small-font'>
+                    {convertDate(comment.created_at)}
+                  </p>
+                  {loggedInUser.id === comment.user_id ? (
+                    <ContentOptions id={comment.id} contentType='comment' />
+                  ) : (
+                    <div className='content-option-placeholder'>&nbsp;</div>
+                  )}
                 </div>
               </div>
               <div>

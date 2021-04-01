@@ -5,6 +5,7 @@ import AuthContext from '../context/auth/AuthContext'
 
 import Navbar from '../components/layout/Navbar'
 import Alerts from '../utils/Alerts'
+import DeleteModal from '../utils/DeleteModal'
 import PrivateRoute from '../routing/PrivateRoute'
 import Login from '../components/pages/Login'
 import Register from '../components/pages/Register'
@@ -15,6 +16,7 @@ const AuthCheck = () => {
   const authContext = useContext(AuthContext)
   const { getLoggedInUser, setLoading } = authContext
 
+
   useEffect(() => {
     setLoading(true)
     getLoggedInUser()
@@ -23,11 +25,14 @@ const AuthCheck = () => {
   return (
     <Router>
       <Navbar />
+      <div className='navbar-offset'>
       <Alerts />
+      <DeleteModal />
       <Route exact path='/login' component={Login} />
       <Route exact path='/register' component={Register} />
       <PrivateRoute exact path='/' component={Dashboard} />
       <PrivateRoute exact path='/user/:id' component={Profile} />
+      </div>
     </Router>
   )
 }
