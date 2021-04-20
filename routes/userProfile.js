@@ -83,4 +83,24 @@ router.post('/profile/update', authorization, async (req, res) => {
   }
 })
 
+// return searched users from search bar
+router.get('/search/', authorization, async (req, res) => {
+  try {
+    const { searchParam } = req.body
+    console.log(searchParam.toUpperCase())
+    const userSearchList = await db.query(
+      "SELECT user_id, first_name, last_name FROM user_profile WHERE UPPER(CONCAT(first_name, ' ', last_name)) LIKE $1",
+      [`%${searchParam.toUpperCase()}%`]
+    )
+    return res.json(userSearchList.rows)
+  } catch (err) {
+    console.error(err.message)
+    return res
+      .status(500)
+      .json(
+        `Server Error. Could not search users with parameter ${searchParam}`
+      )
+  }
+})
+
 module.exports = router
