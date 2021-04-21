@@ -2,7 +2,13 @@ import React, { useReducer } from 'react'
 
 import UserContext from './UserContext'
 import UserReducer from './UserReducer'
-import { GET_SELECTED_USER, CLEAR_SELECTED_USER, SET_LOADING } from '../types'
+import {
+  GET_SELECTED_USER,
+  CLEAR_SELECTED_USER,
+  SEARCH_USER,
+  CLEAR_SEARCH,
+  SET_LOADING,
+} from '../types'
 
 import axios from 'axios'
 
@@ -17,6 +23,7 @@ const UserState = (props) => {
       bio: '',
       occupation: '',
     },
+    userSearchList: [],
     isLoading: true,
   }
 
@@ -57,8 +64,37 @@ const UserState = (props) => {
     }
   }
 
+  // Search users
+  const searchUser = async (searchParam) => {
+    try {
+      if (searchParam === '' || searchParam === ' ') {
+        clearSearch()
+      } else {
+        const response = await axios.get(
+          'http://localhost:5000/api/user/search',
+          {
+            params: {
+              searchParam,
+            },
+          }
+        )
+        dispatch({
+          type: SEARCH_USER,
+          payload: response.data,
+        })
+      }
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+
   const clearSelectedUser = () => {
     dispatch({ type: CLEAR_SELECTED_USER, payload: initialState.selectedUser })
+  }
+
+  // clear search list when no input in search bar
+  const clearSearch = async () => {
+    dispatch({ type: CLEAR_SEARCH })
   }
 
   const setLoading = (loading) => {
@@ -69,9 +105,12 @@ const UserState = (props) => {
     <UserContext.Provider
       value={{
         selectedUser: state.selectedUser,
+        userSearchList: state.userSearchList,
         isLoading: state.isLoading,
         getSelectedUser,
         updateProfile,
+        searchUser,
+        clearSearch,
         setLoading,
         clearSelectedUser,
       }}

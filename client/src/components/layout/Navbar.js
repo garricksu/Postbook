@@ -5,7 +5,7 @@ import AuthContext from '../../context/auth/AuthContext'
 import NavContext from '../../context/nav/NavContext'
 import UserContext from '../../context/user/UserContext'
 
-import UserSearchBar from './UserSearchBar'
+import UserSearchBar from '../search/UserSearchBar'
 
 const Navbar = () => {
   const authContext = useContext(AuthContext)

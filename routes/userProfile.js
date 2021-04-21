@@ -86,7 +86,7 @@ router.post('/profile/update', authorization, async (req, res) => {
 // return searched users from search bar
 router.get('/search/', authorization, async (req, res) => {
   try {
-    const { searchParam } = req.body
+    const { searchParam } = req.query
     console.log(searchParam.toUpperCase())
     const userSearchList = await db.query(
       "SELECT user_id, first_name, last_name FROM user_profile WHERE UPPER(CONCAT(first_name, ' ', last_name)) LIKE $1",
