@@ -5,6 +5,8 @@ import AuthContext from '../../context/auth/AuthContext'
 import NavContext from '../../context/nav/NavContext'
 import UserContext from '../../context/user/UserContext'
 
+import UserSearchBar from '../search/UserSearchBar'
+
 const Navbar = () => {
   const authContext = useContext(AuthContext)
   const {
@@ -50,18 +52,10 @@ const Navbar = () => {
     clearError()
   }
 
-  return (
-    <nav className='navbar navbar-expand-lg navbar-dark bg-dark fixed-top'>
-      <Link
-        className='navbar-brand'
-        id='brand-link'
-        to='/'
-        onClick={clearError}
-      >
-        Postbook
-      </Link>
-      {!isAuthenticated && !isLoading ? (
-        <ul className='navbar-nav ml-auto' id='nav-list'>
+  const returnNavLinks = () => {
+    if (!isAuthenticated && !isLoading) {
+      return (
+        <ul className='navbar-nav' id='nav-list'>
           {generalLinks.map((link, index) => (
             <li className='nav-item' key={index}>
               <Link
@@ -79,8 +73,10 @@ const Navbar = () => {
             </li>
           ))}
         </ul>
-      ) : (
-        <ul className='navbar-nav ml-auto' id='nav-list'>
+      )
+    } else {
+      return (
+        <ul className='navbar-nav' id='nav-list'>
           {userLinks.map((link, index) => (
             <li className='nav-item' key={index}>
               <Link
@@ -98,7 +94,22 @@ const Navbar = () => {
             </li>
           ))}
         </ul>
-      )}
+      )
+    }
+  }
+
+  return (
+    <nav className='navbar navbar-expand-lg navbar-dark bg-dark fixed-top d-flex justify-content-between'>
+      <Link
+        className='navbar-brand'
+        id='brand-link'
+        to='/'
+        onClick={clearError}
+      >
+        Postbook
+      </Link>
+      {isAuthenticated && !isLoading ? <UserSearchBar/> : null }
+      {returnNavLinks()}
     </nav>
   )
 }

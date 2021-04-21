@@ -44,7 +44,7 @@ const Posts = () => {
                 {loggedInUser.id === post.user_id ? (
                   <ContentOptions id={post.id} contentType='post' />
                 ) : (
-                  <div className='content-option-placeholder'>&nbsp;</div>
+                  <div className='content-option-placeholder'></div>
                 )}
               </div>
             </div>

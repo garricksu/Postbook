@@ -40,7 +40,7 @@ const Comments = (props) => {
                   {loggedInUser.id === comment.user_id ? (
                     <ContentOptions id={comment.id} contentType='comment' />
                   ) : (
-                    <div className='content-option-placeholder'>&nbsp;</div>
+                    <div className='content-option-placeholder'></div>
                   )}
                 </div>
               </div>

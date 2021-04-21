@@ -7,8 +7,24 @@ $primary: #7900e3;
   text-decoration-thickness: 3px !important;
   text-underline-offset: 5px !important;
 }
+
 .navbar-offset {
   margin-top: 100px;
+}
+
+#user-search {
+  width: 500px;
+}
+
+.user-search-list {
+  position: absolute;
+}
+
+.user-search-card {
+  width: 500px;
+  &-link:hover {
+    background-color: $primary !important;
+  }
 }
 
 // alert
@@ -20,8 +36,6 @@ $primary: #7900e3;
 // auth
 .auth-form {
   max-width: 500px;
-  input {
-  }
 }
 
 // profile page

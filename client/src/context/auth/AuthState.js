@@ -9,7 +9,7 @@ import {
   AUTH_FAILED,
   SET_ERROR,
   CLEAR_ERROR,
-  SET_LOADING
+  SET_LOADING,
 } from '../types'
 
 import axios from 'axios'
@@ -22,7 +22,7 @@ const AuthState = (props) => {
     token: null,
     error: null,
     isAuthenticated: false,
-    isLoading: true
+    isLoading: true,
   }
 
   const [state, dispatch] = useReducer(AuthReducer, initialState)
@@ -75,12 +75,13 @@ const AuthState = (props) => {
 
   // Get Logged In User
   const getLoggedInUser = async () => {
-    console.log(axios.defaults.headers)
     if (localStorage.token) {
       setAuthToken(localStorage.token)
     }
     try {
-      const response = await axios.get('http://localhost:5000/api/user/loggedInUser')
+      const response = await axios.get(
+        'http://localhost:5000/api/user/loggedInUser'
+      )
       dispatch({
         type: GET_LOGGED_IN_USER,
         payload: response.data,
@@ -110,7 +111,7 @@ const AuthState = (props) => {
   }
 
   const setLoading = (loading) => {
-    dispatch({type: SET_LOADING, payload: loading})
+    dispatch({ type: SET_LOADING, payload: loading })
   }
 
   return (
